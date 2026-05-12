@@ -154,6 +154,7 @@ export default function App() {
             onScoreChange={(q: QualityName, v: number) =>
               update('qualityScores', { ...form.qualityScores, [q]: v })
             }
+            onResetScores={(newScores) => update('qualityScores', newScores)}
           />
         )}
 

@@ -7,11 +7,12 @@ interface Props {
   onChoice: (qIndex: number, choice: 'a' | 'b') => void;
   scores: Record<QualityName, number>;
   onScoreChange: (q: QualityName, v: number) => void;
+  onResetScores: (scores: Record<QualityName, number>) => void;
 }
 
 const Q_LABELS = ['一', '二', '三'];
 
-export default function SelfAssessment({ career, choices, onChoice, scores, onScoreChange }: Props) {
+export default function SelfAssessment({ career, choices, onChoice, scores, onScoreChange, onResetScores }: Props) {
   const recalcFromChoices = () => {
     if (!career) return;
     const newScores: Record<string, number> = {};
@@ -23,7 +24,7 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
         if (opt) newScores[opt.quality] = (newScores[opt.quality] || 0) + 3;
       }
     });
-    for (const q of QUALITIES) onScoreChange(q, newScores[q]);
+    onResetScores(newScores as Record<QualityName, number>);
   };
 
   return (
@@ -80,7 +81,7 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
             onClick={recalcFromChoices}
             className="px-4 py-2 bg-career text-white rounded-full text-sm font-medium hover:bg-career/90 transition"
           >
-            根据回答重新计算资质
+            计算资质
           </button>
 
           {/* Quality sliders */}
