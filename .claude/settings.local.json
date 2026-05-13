@@ -10,7 +10,24 @@
       "Bash(git remote *)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(./node_modules/.bin/vite build *)",
+      "Bash(npm run *)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs:/c/Users/Dql/AppData/Roaming/npm\")",
+      "Bash(node -e \"console.log\\('ok'\\)\")",
+      "Bash(\"C:/Program Files/nodejs/npm.cmd\" --version)",
+      "Bash(\"C:/Program Files/nodejs/npm.cmd\" run build)",
+      "Bash(D:/Nodejs/npm.cmd *)",
+      "Bash(\"D:/Nodejs/git.cmd\" --no-pager diff --stat)",
+      "Read(//d/git/Git/cmd/**)",
+      "Read(//d/git/Git/bin/**)",
+      "Bash(/usr/bin/ls \"D:/git/Git/cmd/\")",
+      "Bash(/bin/ls \"D:/git/Git/\")",
+      "Bash(cmd.exe /c \"dir D:\\\\git\\\\Git\\\\cmd\\\\git.exe\")",
+      "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet add src/components/CharacterPreview.tsx src/index.css .gitignore)",
+      "Bash(D:/git/Git/cmd/git.exe -C D:/Dql/Desktop/tasheet commit -m '重新设计预览界面为 4 页官方角色卡排版' -m '- 基于 pdf_pages_1_3_5_7_recreation.jsx 的设计语言 *)",
+      "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet push)"
     ]
   }
 }
