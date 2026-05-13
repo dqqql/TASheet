@@ -18,9 +18,9 @@ export default function CareerSection({
   options, value, onChange, data, specialAnswer, onSpecialAnswer,
   requisitions, onRequisitionsChange,
 }: Props) {
-  // Auto-fill defaults when career changes and no custom entries exist yet
+  // Auto-fill defaults when career changes
   useEffect(() => {
-    if (!data || requisitions.length > 0) return;
+    if (!data) return;
     const defaults: RequisitionEntry[] = [
       { name: data.initialRequisition, effect: data.requisitionEffect, code: '' },
       ...GENERIC_REQUISITIONS,
