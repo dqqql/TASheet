@@ -6,15 +6,10 @@ interface Props {
   value: string;
   onChange: (id: string) => void;
   data: Reality | null;
-  specialAnswer: string;
-  onSpecialAnswer: (v: string) => void;
-  onboardingAnswers: string[];
-  onOnboardingAnswer: (i: number, v: string) => void;
 }
 
 export default function RealitySection({
-  options, value, onChange, data, specialAnswer, onSpecialAnswer,
-  onboardingAnswers, onOnboardingAnswer,
+  options, value, onChange, data,
 }: Props) {
   return (
     <div className="space-y-6">
@@ -56,35 +51,9 @@ export default function RealitySection({
               <p className="text-ink/80">{data.overloadReleaseEffect}</p>
             </div>
 
-            {data.personalQuestion && (
-              <div className="agency-section bg-white/80">
-                <p className="mb-1 text-xs font-bold text-ink">{data.personalQuestion}</p>
-                {data.personalQuestionHint && (
-                  <p className="text-xs text-muted mb-2 whitespace-pre-line">{data.personalQuestionHint}</p>
-                )}
-                <textarea
-                  className="agency-textarea text-xs focus:border-reality"
-                  rows={2}
-                  value={specialAnswer}
-                  onChange={(e) => onSpecialAnswer(e.target.value)}
-                />
-              </div>
-            )}
-
-            <div className="space-y-3">
-              <p className="agency-kicker text-reality">Reality Interview</p>
-              {data.onboardingQuestions.map((q, i) => (
-                <div key={i} className="agency-section-soft bg-white/80">
-                  <p className="mb-1 text-xs font-bold text-ink">{String(i + 1).padStart(2, '0')} / {q}</p>
-                  <textarea
-                    className="agency-textarea text-xs focus:border-reality"
-                    rows={2}
-                    value={onboardingAnswers[i] || ''}
-                    onChange={(e) => onOnboardingAnswer(i, e.target.value)}
-                  />
-                </div>
-              ))}
-            </div>
+            <p className="border border-reality/30 bg-white/70 p-3 text-xs font-bold text-reality">
+              与该现实相关的补充问题会附加在下方入职问卷末尾。
+            </p>
           </div>
         )}
       </SelectCard>

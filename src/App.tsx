@@ -130,14 +130,6 @@ export default function App() {
             value={form.realityId}
             onChange={(id) => update('realityId', id)}
             data={reality}
-            specialAnswer={form.realitySpecialAnswer}
-            onSpecialAnswer={(v) => update('realitySpecialAnswer', v)}
-            onboardingAnswers={form.onboardingAnswers}
-            onOnboardingAnswer={(i, v) => {
-              const next = [...form.onboardingAnswers];
-              next[i] = v;
-              update('onboardingAnswers', next);
-            }}
           />
 
           <div className="agency-shell mx-auto max-w-3xl space-y-4 p-4 sm:p-5">
@@ -161,6 +153,50 @@ export default function App() {
                 />
               </div>
             ))}
+            {reality && (
+              <div className="space-y-4 border-t-2 border-reality pt-4">
+                <div>
+                  <p className="agency-kicker text-reality">Reality Intake</p>
+                  <h3 className="agency-title text-reality">现实补充问题</h3>
+                  <p className="mt-1 text-xs text-muted">
+                    以下问题来自你选择的现实：{reality.nameZh}（{reality.nameEn}）。
+                  </p>
+                </div>
+
+                {reality.personalQuestion && (
+                  <div className="border border-reality/40 bg-reality-soft p-4">
+                    <p className="text-sm font-black text-ink">R-00 / {reality.personalQuestion}</p>
+                    {reality.personalQuestionHint && (
+                      <p className="mt-1 whitespace-pre-line text-xs text-muted">{reality.personalQuestionHint}</p>
+                    )}
+                    <textarea
+                      className="agency-textarea border-reality/60 bg-white text-xs focus:border-reality"
+                      rows={2}
+                      value={form.realitySpecialAnswer}
+                      onChange={(e) => update('realitySpecialAnswer', e.target.value)}
+                    />
+                  </div>
+                )}
+
+                {reality.onboardingQuestions.map((q, i) => (
+                  <div key={i} className="border border-reality/40 bg-reality-soft p-4">
+                    <p className="text-sm font-black text-ink">
+                      R-{String(i + 1).padStart(2, '0')} / {q}
+                    </p>
+                    <textarea
+                      className="agency-textarea border-reality/60 bg-white text-xs focus:border-reality"
+                      rows={2}
+                      value={form.onboardingAnswers[i] || ''}
+                      onChange={(e) => {
+                        const next = [...form.onboardingAnswers];
+                        next[i] = e.target.value;
+                        update('onboardingAnswers', next);
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </>)}
 

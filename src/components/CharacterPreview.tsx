@@ -98,7 +98,7 @@ function BulletBlock({ color, title, text, children }: { color: string; title: s
 
 function Page({ children }: { children: React.ReactNode }) {
   return (
-    <section style={{ width: 768, minHeight: 1024, background: '#fff', padding: 36, margin: '0 auto 24px', boxShadow: '0 4px 24px rgba(0,0,0,0.12)', fontSize: 12 }}>
+    <section className="print-page" style={{ margin: '0 auto 24px', boxShadow: '0 4px 24px rgba(0,0,0,0.12)', fontSize: 12 }}>
       {children}
     </section>
   );
@@ -330,9 +330,46 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
 
 /* ── Page 4: Questionnaire + Career Credentials ── */
 
-function Page4({ form }: { form: Props; reality: Reality | null; career: Career | null }) {
+function QuestionItem({
+  index,
+  question,
+  answer,
+  color,
+  answerBg,
+}: {
+  index: string;
+  question: string;
+  answer?: string;
+  color: string;
+  answerBg: string;
+}) {
+  const hasAnswer = !!(answer && answer.trim());
+  return (
+    <div style={{ marginBottom: hasAnswer ? 14 : 24 }}>
+      <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
+        <span style={{ display: 'inline-flex', width: 24, height: 20, background: color, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 10 }}>{index}</span>
+        {question}
+      </div>
+      {hasAnswer ? (
+        <div style={{ marginLeft: 30, marginTop: 4, fontSize: 11, color: navy, background: answerBg, padding: '4px 8px', lineHeight: 1.5 }}>
+          {answer}
+        </div>
+      ) : (
+        <div style={{ borderBottom: '1px solid #d9d7df', marginTop: 12, marginLeft: 30 }} />
+      )}
+    </div>
+  );
+}
+
+function Page4({ form, reality }: { form: Props; reality: Reality | null; career: Career | null }) {
   const questions = GENERIC_ONBOARDING;
   const answers = form.genericOnboardingAnswers || [];
+  const realityQuestions = reality
+    ? [
+        ...(reality.personalQuestion ? [{ question: reality.personalQuestion, answer: form.realitySpecialAnswer }] : []),
+        ...reality.onboardingQuestions.map((question, i) => ({ question, answer: form.onboardingAnswers[i] || '' })),
+      ]
+    : [];
 
   return (
     <Page>
@@ -341,25 +378,34 @@ function Page4({ form }: { form: Props; reality: Reality | null; career: Career 
         请尽可能如实回答以下问题，以便机构和你的同事能更多地了解你。
       </p>
 
-      {questions.map((q, i) => {
-        const answer = answers[i];
-        const hasAnswer = !!(answer && answer.trim());
-        return (
-          <div key={i} style={{ marginBottom: hasAnswer ? 14 : 24 }}>
-            <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
-              <span style={{ display: 'inline-flex', width: 20, height: 20, background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
-              {q}
-            </div>
-            {hasAnswer ? (
-              <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', lineHeight: 1.5 }}>
-                {answer}
-              </div>
-            ) : (
-              <div style={{ borderBottom: '1px solid #d9d7df', marginTop: 12, marginLeft: 28 }} />
-            )}
+      {questions.map((q, i) => (
+        <QuestionItem
+          key={q}
+          index={String(i + 1)}
+          question={q}
+          answer={answers[i]}
+          color={red}
+          answerBg="#f8fafc"
+        />
+      ))}
+
+      {realityQuestions.length > 0 && (
+        <div style={{ marginTop: 18, paddingTop: 14, borderTop: `3px solid ${yellow}` }}>
+          <div style={{ color: yellow, fontSize: 18, fontWeight: 900, marginBottom: 10 }}>
+            现实补充问题 · {reality?.nameZh}
           </div>
-        );
-      })}
+          {realityQuestions.map((item, i) => (
+            <QuestionItem
+              key={item.question}
+              index={`R${i + 1}`}
+              question={item.question}
+              answer={item.answer}
+              color={yellow}
+              answerBg="#fffbeb"
+            />
+          ))}
+        </div>
+      )}
     </Page>
   );
 }
@@ -415,7 +461,7 @@ function Page5({ career, requisitions }: { career: Career | null; requisitions: 
 
 export default function CharacterPreview(props: Props) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px 0' }}>
+    <div className="print-preview" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '24px 0' }}>
       <Page1 form={props} anomaly={props.anomaly} reality={props.reality} career={props.career} />
       <Page2 anomaly={props.anomaly} abilityAnswers={props.abilityAnswers} />
       <Page3 reality={props.reality} relationships={props.relationships} />

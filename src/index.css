@@ -69,22 +69,54 @@ body {
 .print-page {
   width: 210mm;
   min-height: 297mm;
+  box-sizing: border-box;
   padding: 12mm 14mm;
   background: white;
   font-size: 11px;
   line-height: 1.6;
   color: #1a1a2e;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
 }
 
 @media print {
-  @page { margin: 0; size: auto; }
-  body { @apply bg-white; }
-  .no-print { display: none !important; }
-  section {
-    box-shadow: none !important;
-    page-break-after: always;
-    margin: 0 auto !important;
-    width: 100% !important;
+  @page { margin: 0; size: A4; }
+  * {
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
-  section:last-child { page-break-after: auto; }
+  html,
+  body,
+  #root {
+    width: 210mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+  body {
+    background-image: none !important;
+  }
+  .no-print { display: none !important; }
+  main {
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .print-preview {
+    display: block !important;
+    padding: 0 !important;
+  }
+  .print-page {
+    box-shadow: none !important;
+    break-after: page;
+    page-break-after: always;
+    margin: 0 !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+  }
+  .print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
 }
