@@ -63,7 +63,6 @@ export default function CareerSection({
                   rows={2}
                   value={specialAnswer}
                   onChange={(e) => onSpecialAnswer(e.target.value)}
-                  placeholder="在此填写……"
                 />
               </div>
             )}

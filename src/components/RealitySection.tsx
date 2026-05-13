@@ -64,7 +64,6 @@ export default function RealitySection({
                   rows={2}
                   value={specialAnswer}
                   onChange={(e) => onSpecialAnswer(e.target.value)}
-                  placeholder="在此填写……"
                 />
               </div>
             )}
@@ -79,7 +78,6 @@ export default function RealitySection({
                     rows={2}
                     value={onboardingAnswers[i] || ''}
                     onChange={(e) => onOnboardingAnswer(i, e.target.value)}
-                    placeholder="在此填写……"
                   />
                 </div>
               ))}

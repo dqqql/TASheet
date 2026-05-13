@@ -143,7 +143,6 @@ export default function App() {
                     next[i] = e.target.value;
                     update('genericOnboardingAnswers', next);
                   }}
-                  placeholder="在此填写……"
                 />
               </div>
             ))}

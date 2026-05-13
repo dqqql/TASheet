@@ -43,7 +43,6 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                     className="mt-0.5 w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-ink focus:outline-none"
                     value={e.name}
                     onChange={(ev) => update(i, 'name', ev.target.value)}
-                    placeholder="姓名"
                   />
                 </label>
                 <label className="block">
@@ -52,7 +51,6 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                     className="mt-0.5 w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-ink focus:outline-none"
                     value={e.player}
                     onChange={(ev) => update(i, 'player', ev.target.value)}
-                    placeholder="玩家名"
                   />
                 </label>
               </div>
@@ -63,7 +61,6 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                   rows={2}
                   value={e.description}
                   onChange={(ev) => update(i, 'description', ev.target.value)}
-                  placeholder="描述你们之间的关系……"
                 />
               </label>
             </div>
