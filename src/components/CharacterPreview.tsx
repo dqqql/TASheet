@@ -197,27 +197,27 @@ function AbilityCard({ ability, choice }: {
   return (
     <div style={{ border: '1px solid #bdd2e6', borderRadius: 10, overflow: 'hidden', marginBottom: 14 }}>
       {/* Header */}
-      <div style={{ display: 'grid', gridTemplateColumns: '45% 40% 15%', background: '#eaf2fb', fontSize: 12, fontWeight: 900, color: blue }}>
-        <div style={{ padding: '8px 10px', borderRight: '1px solid #bdd2e6' }}>{ability.name}</div>
-        <div style={{ padding: '8px 10px', borderRight: '1px solid #bdd2e6' }}>{ability.trigger.slice(0, 40)}……</div>
-        <div style={{ padding: '8px 10px' }}>{ability.quality}</div>
+      <div style={{ display: 'grid', gridTemplateColumns: '45% 40% 15%', background: '#eaf2fb', fontSize: 14, fontWeight: 900, color: blue, textAlign: 'center' }}>
+        <div style={{ padding: '10px 10px', borderRight: '1px solid #bdd2e6' }}>能力 · {ability.name}</div>
+        <div style={{ padding: '10px 10px', borderRight: '1px solid #bdd2e6' }}>触发器</div>
+        <div style={{ padding: '10px 10px' }}>资质 · {ability.quality}</div>
       </div>
 
       {/* Body */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, padding: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, padding: 14 }}>
         {/* Success */}
         <div>
-          <div style={{ fontWeight: 900, marginBottom: 6, color: blue, fontSize: 13 }}>▲ 成功时，</div>
-          <div style={{ fontSize: 10, color: navy, lineHeight: 1.6 }}>{ability.success}</div>
-          <div style={{ marginTop: 8, fontSize: 10, color: navy }}>
+          <div style={{ fontWeight: 900, marginBottom: 6, color: blue, fontSize: 14 }}>▲ 成功时，</div>
+          <div style={{ fontSize: 11, color: navy, lineHeight: 1.6 }}>{ability.success}</div>
+          <div style={{ marginTop: 8, fontSize: 11, color: navy }}>
             <b style={{ color: blue }}>增强：</b>{ability.enhancement}
           </div>
         </div>
 
         {/* Failure */}
         <div>
-          <div style={{ fontWeight: 900, marginBottom: 6, color: red, fontSize: 13 }}>✖ 失败时，</div>
-          <div style={{ fontSize: 10, color: navy, lineHeight: 1.6 }}>{ability.failure}</div>
+          <div style={{ fontWeight: 900, marginBottom: 6, color: red, fontSize: 14 }}>✖ 失败时，</div>
+          <div style={{ fontSize: 11, color: navy, lineHeight: 1.6 }}>{ability.failure}</div>
 
           {/* Q&A */}
           <div style={{ background: '#f8fafc', padding: 8, marginTop: 10, borderRadius: 6, fontSize: 11, color: blue }}>
@@ -381,20 +381,20 @@ function Page5({ career }: { career: Career | null }) {
       {career && (
         <div style={{ border: `2px solid #efc6cf`, borderRadius: 10, overflow: 'hidden' }}>
           {/* Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 12, color: red }}>
-            <div style={{ padding: '10px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
-            <div style={{ padding: '10px 12px', borderRight: '1px solid #efc6cf' }}>效果</div>
-            <div style={{ padding: '10px 12px' }}>代码</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 14, color: red, textAlign: 'center' }}>
+            <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
+            <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>效果</div>
+            <div style={{ padding: '12px 12px' }}>页面 / PD代码</div>
           </div>
           {/* Body */}
           <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', minHeight: 120 }}>
-            <div style={{ padding: 10, borderRight: '1px solid #efc6cf', fontSize: 13, fontWeight: 700, color: navy }}>
+            <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 14, fontWeight: 700, color: navy, textAlign: 'center' }}>
               {career.initialRequisition}
             </div>
-            <div style={{ padding: 10, borderRight: '1px solid #efc6cf', fontSize: 10, color: navy, lineHeight: 1.6 }}>
+            <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 11, color: navy, lineHeight: 1.6 }}>
               {career.requisitionEffect}
             </div>
-            <div style={{ padding: 10, fontSize: 10, color: navy }} />
+            <div style={{ padding: 12, fontSize: 11, color: navy, textAlign: 'center' }} />
           </div>
         </div>
       )}
@@ -410,8 +410,8 @@ export default function CharacterPreview(props: Props) {
       <Page1 form={props} anomaly={props.anomaly} reality={props.reality} career={props.career} />
       <Page2 anomaly={props.anomaly} abilityAnswers={props.abilityAnswers} />
       <Page3 reality={props.reality} relationships={props.relationships} />
-      <Page4 form={props} reality={props.reality} career={props.career} />
       <Page5 career={props.career} />
+      <Page4 form={props} reality={props.reality} career={props.career} />
     </div>
   );
 }
