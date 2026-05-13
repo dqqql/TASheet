@@ -128,7 +128,7 @@ function Page1({ form, anomaly, reality, career }: {
             ].map((x) => (
               <div key={x.label} style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
                 <div style={{ fontWeight: 900, fontSize: 16, color: navy, minWidth: 64 }}>{x.label}</div>
-                <div style={{ flex: 1, borderBottom: `2px solid #94a3b8`, minHeight: 22, fontSize: 16, color: navy, textAlign: 'right' }}>
+                <div style={{ flex: 1, borderBottom: `2px solid #94a3b8`, minHeight: 22, fontSize: 20, color: navy, textAlign: 'center', fontWeight: 900 }}>
                   {x.value || ''}
                 </div>
               </div>
