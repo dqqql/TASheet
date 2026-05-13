@@ -165,6 +165,8 @@ export default function App() {
             data={career}
             specialAnswer={form.careerSpecialAnswer}
             onSpecialAnswer={(v) => update('careerSpecialAnswer', v)}
+            requisitions={form.customRequisitions}
+            onRequisitionsChange={(r) => update('customRequisitions', r)}
           />
         )}
 
@@ -229,6 +231,7 @@ export default function App() {
               genericOnboardingAnswers={form.genericOnboardingAnswers}
               relationships={form.relationships}
               qualityScores={form.qualityScores}
+              requisitions={form.customRequisitions}
             />
           </div>
         )}

@@ -1,4 +1,4 @@
-import type { Anomaly, Reality, Career, RelationshipEntry, QualityName } from '../types/arc';
+import type { Anomaly, Reality, Career, RelationshipEntry, QualityName, RequisitionEntry } from '../types/arc';
 import { QUALITIES, GENERIC_ONBOARDING } from '../types/arc';
 
 const navy = '#21143f';
@@ -24,6 +24,7 @@ interface Props {
   genericOnboardingAnswers: string[];
   relationships: RelationshipEntry[];
   qualityScores: Record<QualityName, number>;
+  requisitions: RequisitionEntry[];
 }
 
 /* ── Reusable atoms ── */
@@ -365,7 +366,11 @@ function Page4({ form }: { form: Props; reality: Reality | null; career: Career 
 
 /* ── Page 5: Requisitions ── */
 
-function Page5({ career }: { career: Career | null }) {
+function Page5({ career, requisitions }: { career: Career | null; requisitions: RequisitionEntry[] }) {
+  const items = requisitions.length > 0 ? requisitions : (
+    career ? [{ name: career.initialRequisition, effect: career.requisitionEffect, code: '' }] : []
+  );
+
   return (
     <Page>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
@@ -378,26 +383,30 @@ function Page5({ career }: { career: Career | null }) {
         </div>
       </div>
 
-      {career && (
-        <div style={{ border: `2px solid #efc6cf`, borderRadius: 10, overflow: 'hidden' }}>
-          {/* Header */}
-          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 14, color: red, textAlign: 'center' }}>
-            <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
-            <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>效果</div>
-            <div style={{ padding: '12px 12px' }}>页面 / PD代码</div>
-          </div>
-          {/* Body */}
-          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', minHeight: 120 }}>
-            <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 14, fontWeight: 700, color: navy, textAlign: 'center' }}>
-              {career.initialRequisition}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {items.map((r, i) => (
+          <div key={i} style={{ border: `2px solid #efc6cf`, borderRadius: 10, overflow: 'hidden' }}>
+            {/* Header */}
+            <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 14, color: red, textAlign: 'center' }}>
+              <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
+              <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>效果</div>
+              <div style={{ padding: '12px 12px' }}>页面 / PD代码</div>
             </div>
-            <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 11, color: navy, lineHeight: 1.6 }}>
-              {career.requisitionEffect}
+            {/* Body */}
+            <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', minHeight: 100 }}>
+              <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 14, fontWeight: 700, color: navy, textAlign: 'center' }}>
+                {r.name}
+              </div>
+              <div style={{ padding: 12, borderRight: '1px solid #efc6cf', fontSize: 11, color: navy, lineHeight: 1.6, whiteSpace: 'pre-line' }}>
+                {r.effect}
+              </div>
+              <div style={{ padding: 12, fontSize: 11, color: navy, textAlign: 'center' }}>
+                {r.code}
+              </div>
             </div>
-            <div style={{ padding: 12, fontSize: 11, color: navy, textAlign: 'center' }} />
           </div>
-        </div>
-      )}
+        ))}
+      </div>
     </Page>
   );
 }
@@ -410,7 +419,7 @@ export default function CharacterPreview(props: Props) {
       <Page1 form={props} anomaly={props.anomaly} reality={props.reality} career={props.career} />
       <Page2 anomaly={props.anomaly} abilityAnswers={props.abilityAnswers} />
       <Page3 reality={props.reality} relationships={props.relationships} />
-      <Page5 career={props.career} />
+      <Page5 career={props.career} requisitions={props.requisitions} />
       <Page4 form={props} reality={props.reality} career={props.career} />
     </div>
   );
