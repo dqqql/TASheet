@@ -1,4 +1,5 @@
 import type { RelationshipEntry, RelationshipPrompt } from '../types/arc';
+import { CONNECTION_REWARDS } from '../types/arc';
 
 interface Props {
   prompts: RelationshipPrompt[];
@@ -7,10 +8,32 @@ interface Props {
 }
 
 export default function RelationshipEditor({ prompts, entries, onChange }: Props) {
-  const update = (i: number, field: keyof RelationshipEntry, value: string) => {
+  const emptyEntry = (prompt = ''): RelationshipEntry => ({
+    prompt,
+    name: '',
+    player: '',
+    description: '',
+    bondRewardId: '',
+    bondBonus: '',
+  });
+
+  const patch = (i: number, changes: Partial<RelationshipEntry>) => {
     const next = [...entries];
-    next[i] = { ...next[i], [field]: value };
+    const current = next[i] || emptyEntry();
+    next[i] = { ...current, ...changes };
     onChange(next);
+  };
+
+  const update = <K extends keyof RelationshipEntry>(i: number, field: K, value: RelationshipEntry[K]) => {
+    patch(i, { [field]: value });
+  };
+
+  const selectReward = (i: number, rewardId: string) => {
+    const reward = CONNECTION_REWARDS.find((item) => item.id === rewardId);
+    patch(i, {
+      bondRewardId: rewardId,
+      bondBonus: rewardId === 'custom' ? '' : reward?.effect ?? '',
+    });
   };
 
   return (
@@ -29,7 +52,8 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
       )}
       <div className="space-y-4">
         {prompts.map((p, i) => {
-          const e = entries[i] || { prompt: p.question, name: '', player: '', description: '' };
+          const e = entries[i] || emptyEntry(p.question);
+          const rewardId = e.bondRewardId || (e.bondBonus ? 'custom' : '');
           return (
             <div key={i} className="agency-section space-y-3">
               <p className="text-sm font-bold text-ink">
@@ -70,6 +94,39 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                   onChange={(ev) => update(i, 'description', ev.target.value)}
                 />
               </label>
+              <div className="space-y-3">
+                <label className="block">
+                  <span className="agency-label">连结加成</span>
+                  <select
+                    className="agency-input"
+                    value={rewardId}
+                    onChange={(ev) => selectReward(i, ev.target.value)}
+                  >
+                    <option value="">-- 请选择 --</option>
+                    {CONNECTION_REWARDS.map((reward) => (
+                      <option key={reward.id} value={reward.id}>
+                        {reward.id === 'custom' ? reward.name : `${reward.id}. ${reward.name}`}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                {rewardId === 'custom' && (
+                  <label className="block">
+                    <span className="agency-label">自定义连结加成</span>
+                    <textarea
+                      className="agency-textarea"
+                      rows={2}
+                      value={e.bondBonus ?? ''}
+                      onChange={(ev) => update(i, 'bondBonus', ev.target.value)}
+                    />
+                  </label>
+                )}
+                {rewardId && rewardId !== 'custom' && (
+                  <p className="border border-reality/30 bg-reality-soft p-3 text-xs leading-relaxed text-ink">
+                    {e.bondBonus}
+                  </p>
+                )}
+              </div>
             </div>
           );
         })}

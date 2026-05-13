@@ -264,6 +264,8 @@ function Page2({ anomaly, abilityAnswers }: { anomaly: Anomaly | null; abilityAn
 /* ── Page 3: Relationships ── */
 
 function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
+  const bondBonus = entry.bondBonus ?? '';
+
   return (
     <div style={{ border: `2px solid ${yellow}`, overflow: 'hidden' }}>
       {/* Header */}
@@ -286,15 +288,35 @@ function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
 
         {/* Track */}
         <div style={{ marginTop: 8 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 900, fontSize: 10, color: navy, marginBottom: 4 }}>
-            {Array.from({ length: 10 }).map((_, i) => <span key={i} style={{ width: 16, textAlign: 'center' }}>{i}</span>)}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-            <span style={{ fontSize: 16 }}>▶</span>
-            {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} style={{ width: 16, height: 16, border: `2px solid ${yellow}`, background: '#fff' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', alignItems: 'center', fontWeight: 900, fontSize: 10, color: '#b98a13', marginBottom: 4 }}>
+            {Array.from({ length: 10 }).map((_, i) => (
+              <span key={i} style={{ textAlign: 'center' }}>{i}</span>
             ))}
-            <span style={{ color: yellow, fontWeight: 900 }}>◎</span>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', alignItems: 'center' }}>
+            <span style={{ color: yellow, fontSize: 16, lineHeight: 1, textAlign: 'center' }}>▶</span>
+            {Array.from({ length: 9 }).map((_, i) => (
+              <span key={i} style={{ display: 'flex', justifyContent: 'center' }}>
+                <span style={{ width: 14, height: 14, border: `2px solid ${yellow}`, background: '#fff' }} />
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ marginTop: 8 }}>
+          <div style={{ color: '#b98a13', fontWeight: 900, fontSize: 11, marginBottom: 4 }}>连结加成</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 34px', gap: 8, alignItems: 'center', background: '#fffbeb', padding: 8 }}>
+            <div style={{ minHeight: 34, color: navy, fontSize: 10, lineHeight: 1.5, whiteSpace: 'pre-line' }}>
+              {bondBonus || (
+                <>
+                  <div style={{ borderBottom: `1px solid ${yellow}`, height: 13 }} />
+                  <div style={{ borderBottom: `1px solid ${yellow}`, height: 13, marginTop: 5 }} />
+                </>
+              )}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ width: 20, height: 20, border: `2px solid ${yellow}`, background: '#fff' }} />
+            </div>
           </div>
         </div>
       </div>
@@ -314,14 +336,14 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
       </div>
 
       <div style={{ border: '1px solid #e5e0d0', padding: 10, marginBottom: 18, fontWeight: 900, fontSize: 18, color: navy, width: 260 }}>
-        ◎ 关系网内的关系
+        ◎ 关系
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
         {relationships.length > 0 ? (
           relationships.map((r, i) => <RelationCard key={i} entry={r} index={i} />)
         ) : (
-          Array.from({ length: 6 }).map((_, i) => <RelationCard key={i} entry={{ prompt: '', name: '', player: '', description: '' }} index={i} />)
+          Array.from({ length: 6 }).map((_, i) => <RelationCard key={i} entry={{ prompt: '', name: '', player: '', description: '', bondRewardId: '', bondBonus: '' }} index={i} />)
         )}
       </div>
     </Page>

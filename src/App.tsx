@@ -47,8 +47,8 @@ export default function App() {
       const entries: RelationshipEntry[] = reality.relationshipPrompts.map((p, i) => {
         const existing = form.relationships[i];
         return existing && existing.prompt === p.question
-          ? existing
-          : { prompt: p.question, name: '', player: '', description: '' };
+          ? { ...existing, bondRewardId: existing.bondRewardId ?? '', bondBonus: existing.bondBonus ?? '' }
+          : { prompt: p.question, name: '', player: '', description: '', bondRewardId: '', bondBonus: '' };
       });
       setForm((prev) => ({ ...prev, relationships: entries }));
     }
