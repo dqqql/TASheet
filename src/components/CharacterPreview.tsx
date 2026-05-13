@@ -329,78 +329,75 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
 
 /* ── Page 4: Questionnaire + Career Credentials ── */
 
-function Page4({ form, reality: _reality, career }: { form: Props; reality: Reality | null; career: Career | null }) {
+function Page4({ form }: { form: Props; reality: Reality | null; career: Career | null }) {
   const questions = GENERIC_ONBOARDING;
   const answers = form.genericOnboardingAnswers || [];
 
   return (
     <Page>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 220px', gap: 24 }}>
-        {/* Left: Welcome + questionnaire */}
-        <div>
-          <h1 style={{ fontSize: 30, fontWeight: 900, color: navy, margin: 0 }}>欢迎你，特工!</h1>
-          <p style={{ fontWeight: 700, marginTop: 6, marginBottom: 14, color: navy, fontSize: 12 }}>
-            请尽可能如实回答以下问题，以便机构和你的同事能更多地了解你。
-          </p>
+      <h1 style={{ fontSize: 30, fontWeight: 900, color: navy, margin: '0 0 6px' }}>欢迎你，特工!</h1>
+      <p style={{ fontWeight: 700, marginBottom: 20, color: navy, fontSize: 12 }}>
+        请尽可能如实回答以下问题，以便机构和你的同事能更多地了解你。
+      </p>
 
-          {questions.map((q, i) => {
-            const answer = answers[i];
-            const hasAnswer = !!(answer && answer.trim());
-            return (
-              <div key={i} style={{ marginBottom: hasAnswer ? 14 : 24 }}>
-                <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
-                  <span style={{ display: 'inline-flex', width: 20, height: 20, borderRadius: '50%', background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
-                  {q}
-                </div>
-                {hasAnswer ? (
-                  <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', borderRadius: 4, lineHeight: 1.5 }}>
-                    {answer}
-                  </div>
-                ) : (
-                  <div style={{ borderBottom: '1px solid #d9d7df', marginTop: 12, marginLeft: 28 }} />
-                )}
+      {questions.map((q, i) => {
+        const answer = answers[i];
+        const hasAnswer = !!(answer && answer.trim());
+        return (
+          <div key={i} style={{ marginBottom: hasAnswer ? 14 : 24 }}>
+            <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
+              <span style={{ display: 'inline-flex', width: 20, height: 20, borderRadius: '50%', background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
+              {q}
+            </div>
+            {hasAnswer ? (
+              <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', borderRadius: 4, lineHeight: 1.5 }}>
+                {answer}
               </div>
-            );
-          })}
-
-          {/* Career requisition */}
-          {career && (
-            <div style={{ marginTop: 20, padding: 12, border: '1px solid #f0d0d6', borderRadius: 8, background: '#fff5f5' }}>
-              <div style={{ fontWeight: 900, color: red, fontSize: 13 }}>初始申领物 · {career.initialRequisition}</div>
-              <div style={{ fontSize: 10, color: navy, marginTop: 4, lineHeight: 1.5 }}>{career.requisitionEffect}</div>
-            </div>
-          )}
-        </div>
-
-        {/* Right: ID card + emergency */}
-        <div>
-          <div style={{ border: '1px solid #ddd', borderRadius: 12, padding: 12, minHeight: 200, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', position: 'relative' }}>
-            <div style={{ height: 100, border: '1px solid #e5e5e5', borderRadius: 6, background: '#f8fafc', marginBottom: 12 }} />
-            <div style={{ fontWeight: 900, color: red, fontSize: 13 }}>姓名</div>
-            <div style={{ borderBottom: `1px solid ${red}`, marginBottom: 8, marginTop: 4, fontSize: 16, fontWeight: 900, color: navy }}>
-              {form.characterName || '—'}
-            </div>
-            <div style={{ fontWeight: 900, fontSize: 11, color: red }}>
-              人称代词 <span style={{ float: 'right', fontSize: 13 }}>TRIANGLE<br />AGENCY</span>
-            </div>
-            <div style={{ borderBottom: `1px solid ${red}`, marginTop: 12 }} />
-            <div style={{ marginTop: 4, fontSize: 12, fontWeight: 900, color: navy }}>
-              {form.pronouns || '—'}
-            </div>
+            ) : (
+              <div style={{ borderBottom: '1px solid #d9d7df', marginTop: 12, marginLeft: 28 }} />
+            )}
           </div>
+        );
+      })}
+    </Page>
+  );
+}
 
-          {/* Emergency contact */}
-          <div style={{ border: `2px solid #efc6cf`, borderRadius: 10, padding: 12, marginTop: 16, color: red }}>
-            <div style={{ fontWeight: 900, fontSize: 13 }}>紧急联系人</div>
-            <div style={{ borderBottom: `1px solid ${red}`, marginTop: 12, marginBottom: 12 }} />
-            <div style={{ fontWeight: 900, fontSize: 13 }}>关系</div>
-            <div style={{ borderBottom: `1px solid ${red}`, marginTop: 12 }} />
-            <div style={{ marginTop: 6, fontSize: 10, color: navy }}>
-              {form.relationships[0]?.name || '—'}
-            </div>
-          </div>
+/* ── Page 5: Requisitions ── */
+
+function Page5({ career }: { career: Career | null }) {
+  return (
+    <Page>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 28 }}>
+        <h1 style={{ fontSize: 30, fontWeight: 900, color: navy, margin: 0, lineHeight: 1.2 }}>
+          申领物<br />与福利
+        </h1>
+        <div style={{ width: 260 }}>
+          <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>角色姓名 __________________</div>
+          <TriLogo letter="C" color={red} label={career ? `职能 · ${career.nameZh}` : '职能'} />
         </div>
       </div>
+
+      {career && (
+        <div style={{ border: `2px solid #efc6cf`, borderRadius: 10, overflow: 'hidden' }}>
+          {/* Header */}
+          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 12, color: red }}>
+            <div style={{ padding: '10px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
+            <div style={{ padding: '10px 12px', borderRight: '1px solid #efc6cf' }}>效果</div>
+            <div style={{ padding: '10px 12px' }}>代码</div>
+          </div>
+          {/* Body */}
+          <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', minHeight: 120 }}>
+            <div style={{ padding: 10, borderRight: '1px solid #efc6cf', fontSize: 13, fontWeight: 700, color: navy }}>
+              {career.initialRequisition}
+            </div>
+            <div style={{ padding: 10, borderRight: '1px solid #efc6cf', fontSize: 10, color: navy, lineHeight: 1.6 }}>
+              {career.requisitionEffect}
+            </div>
+            <div style={{ padding: 10, fontSize: 10, color: navy }} />
+          </div>
+        </div>
+      )}
     </Page>
   );
 }
@@ -414,6 +411,7 @@ export default function CharacterPreview(props: Props) {
       <Page2 anomaly={props.anomaly} abilityAnswers={props.abilityAnswers} />
       <Page3 reality={props.reality} relationships={props.relationships} />
       <Page4 form={props} reality={props.reality} career={props.career} />
+      <Page5 career={props.career} />
     </div>
   );
 }
