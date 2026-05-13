@@ -281,7 +281,7 @@ function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
         <div style={{ fontWeight: 900, marginBottom: 4, color: navy, fontSize: 11 }}>描述</div>
         <div style={{ borderBottom: `1px solid ${yellow}`, marginBottom: 8 }} />
         <div style={{ fontSize: 10, color: navy, minHeight: 32, lineHeight: 1.5 }}>
-          {entry.description || entry.prompt}
+          {entry.description || ''}
         </div>
 
         {/* Track */}
@@ -392,7 +392,7 @@ function Page4({ form, reality }: { form: Props; reality: Reality | null; career
       {realityQuestions.length > 0 && (
         <div style={{ marginTop: 18, paddingTop: 14, borderTop: `3px solid ${yellow}` }}>
           <div style={{ color: yellow, fontSize: 18, fontWeight: 900, marginBottom: 10 }}>
-            现实补充问题 · {reality?.nameZh}
+            现实 · {reality?.nameZh}
           </div>
           {realityQuestions.map((item, i) => (
             <QuestionItem
