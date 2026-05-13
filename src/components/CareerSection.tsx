@@ -122,10 +122,20 @@ export default function CareerSection({
                   onChange={(e) => updateRow(i, 'name', e.target.value)}
                 />
                 <textarea
-                  className="p-2 border-r border-stone-100 text-xs focus:outline-none resize-none"
-                  rows={3}
+                  className="p-2 border-r border-stone-100 text-xs focus:outline-none resize-none overflow-hidden"
                   value={r.effect}
-                  onChange={(e) => updateRow(i, 'effect', e.target.value)}
+                  onChange={(e) => {
+                    const el = e.target;
+                    el.style.height = 'auto';
+                    el.style.height = el.scrollHeight + 'px';
+                    updateRow(i, 'effect', e.target.value);
+                  }}
+                  ref={(el) => {
+                    if (el) {
+                      el.style.height = 'auto';
+                      el.style.height = el.scrollHeight + 'px';
+                    }
+                  }}
                 />
                 <div className="relative">
                   <input
