@@ -90,7 +90,12 @@ export default function App() {
           <BasicInfo
             characterName={form.characterName}
             pronouns={form.pronouns}
-            onChange={(field, value) => update(field, value)}
+            agencyTitle={form.agencyTitle}
+            agencyRank={form.agencyRank}
+            commendations={form.commendations}
+            reprimands={form.reprimands}
+            extraOverload={form.extraOverload}
+            onChange={(field, value) => update(field as keyof CharacterFormState, value)}
           />
         )}
 
@@ -210,6 +215,11 @@ export default function App() {
             <CharacterPreview
               characterName={form.characterName}
               pronouns={form.pronouns}
+              agencyTitle={form.agencyTitle}
+              agencyRank={form.agencyRank}
+              commendations={form.commendations}
+              reprimands={form.reprimands}
+              extraOverload={form.extraOverload}
               anomaly={anomaly}
               reality={reality}
               career={career}

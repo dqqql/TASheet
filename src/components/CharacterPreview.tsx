@@ -9,6 +9,11 @@ const blue = '#1569ad';
 interface Props {
   characterName: string;
   pronouns: string;
+  agencyTitle: string;
+  agencyRank: string;
+  commendations: string;
+  reprimands: string;
+  extraOverload: string;
   anomaly: Anomaly | null;
   reality: Reality | null;
   career: Career | null;
@@ -90,12 +95,6 @@ function BulletBlock({ color, title, text, children }: { color: string; title: s
   );
 }
 
-function StarBadge({ color: c }: { color: string }) {
-  return (
-    <div style={{ width: 28, height: 28, borderRadius: '50%', border: `3px solid ${c}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, color: c, fontSize: 13 }}>★</div>
-  );
-}
-
 function Page({ children }: { children: React.ReactNode }) {
   return (
     <section style={{ width: 768, minHeight: 1024, background: '#fff', padding: 36, margin: '0 auto 24px', boxShadow: '0 4px 24px rgba(0,0,0,0.12)', fontSize: 12 }}>
@@ -118,15 +117,20 @@ function Page1({ form, anomaly, reality, career }: {
         {/* Left column */}
         <div>
           <FieldLine label="角色姓名" value={form.characterName} />
-          <FieldLine label="机构头衔" />
-          <FieldLine label="机构评级" />
+          <FieldLine label="机构头衔" value={form.agencyTitle} />
+          <FieldLine label="机构评级" value={form.agencyRank} />
 
-          <div style={{ marginTop: 28, marginBottom: 16 }}>
-            {['嘉奖', '申诫', '额外过载'].map((x) => (
-              <div key={x} style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 10 }}>
-                <StarBadge color={red} />
-                <div style={{ width: 36, borderBottom: `2px solid ${red}` }} />
-                <div style={{ fontSize: 22, fontWeight: 900, color: navy }}>{x}</div>
+          <div style={{ marginTop: 24, marginBottom: 16 }}>
+            {[
+              { label: '嘉奖', value: form.commendations },
+              { label: '申诫', value: form.reprimands },
+              { label: '额外过载', value: form.extraOverload },
+            ].map((x) => (
+              <div key={x.label} style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
+                <div style={{ fontWeight: 900, fontSize: 16, color: navy, minWidth: 64 }}>{x.label}</div>
+                <div style={{ flex: 1, borderBottom: `2px solid #94a3b8`, minHeight: 22, fontSize: 16, color: navy, textAlign: 'right' }}>
+                  {x.value || ''}
+                </div>
               </div>
             ))}
           </div>

@@ -87,6 +87,11 @@ export interface RelationshipEntry {
 export interface CharacterFormState {
   characterName: string;
   pronouns: string;
+  agencyTitle: string;
+  agencyRank: string;
+  commendations: string;
+  reprimands: string;
+  extraOverload: string;
   anomalyId: string;
   realityId: string;
   careerId: string;
@@ -123,6 +128,11 @@ export function emptyForm(): CharacterFormState {
   return {
     characterName: '',
     pronouns: '',
+    agencyTitle: '',
+    agencyRank: '',
+    commendations: '',
+    reprimands: '',
+    extraOverload: '',
     anomalyId: '',
     realityId: '',
     careerId: '',
