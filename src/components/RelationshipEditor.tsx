@@ -14,21 +14,28 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 4 · 创建人际关系</h2>
-      <p className="text-sm text-muted -mt-3">
-        基于你选择的现实身份，填写以下三段关键人际关系。
-      </p>
+    <div className="agency-shell mx-auto max-w-3xl space-y-5 p-4 sm:p-6">
+      <div className="border-b-2 border-ink pb-4">
+        <p className="agency-kicker">Relationship Network</p>
+        <h2 className="agency-title">Step 4 · 创建人际关系</h2>
+        <p className="mt-1 text-sm text-muted">
+          基于你选择的现实身份，填写以下三段关键人际关系。
+        </p>
+      </div>
       {prompts.length === 0 && (
-        <p className="text-sm text-muted text-center py-8">请先在 Step 3 中选择一个现实身份。</p>
+        <p className="border border-dashed border-ink/30 bg-white px-4 py-8 text-center text-sm text-muted">
+          请先在 Step 3 中选择一个现实身份。
+        </p>
       )}
       <div className="space-y-4">
         {prompts.map((p, i) => {
           const e = entries[i] || { prompt: p.question, name: '', player: '', description: '' };
           return (
-            <div key={i} className="bg-white rounded-xl border border-stone-200 p-5 space-y-3">
-              <p className="text-sm font-medium text-ink">
-                <span className="text-reality font-bold mr-1">关系 {i + 1}</span>
+            <div key={i} className="agency-section space-y-3">
+              <p className="text-sm font-bold text-ink">
+                <span className="mr-2 bg-reality px-2 py-1 text-[10px] font-black uppercase text-white">
+                  关系 {String(i + 1).padStart(2, '0')}
+                </span>
                 {p.question}
               </p>
               {p.examples.length > 0 && (
@@ -38,26 +45,26 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
               )}
               <div className="grid grid-cols-2 gap-2">
                 <label className="block">
-                  <span className="text-xs text-muted">姓名</span>
+                  <span className="agency-label">姓名</span>
                   <input
-                    className="mt-0.5 w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-ink focus:outline-none"
+                    className="agency-input"
                     value={e.name}
                     onChange={(ev) => update(i, 'name', ev.target.value)}
                   />
                 </label>
                 <label className="block">
-                  <span className="text-xs text-muted">扮演者（可选）</span>
+                  <span className="agency-label">扮演者（可选）</span>
                   <input
-                    className="mt-0.5 w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-ink focus:outline-none"
+                    className="agency-input"
                     value={e.player}
                     onChange={(ev) => update(i, 'player', ev.target.value)}
                   />
                 </label>
               </div>
               <label className="block">
-                <span className="text-xs text-muted">关系描述</span>
+                <span className="agency-label">关系描述</span>
                 <textarea
-                  className="mt-0.5 w-full rounded-lg border border-stone-300 px-2 py-1.5 text-sm focus:border-ink focus:outline-none"
+                  className="agency-textarea"
                   rows={2}
                   value={e.description}
                   onChange={(ev) => update(i, 'description', ev.target.value)}

@@ -28,14 +28,19 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
   };
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 5 · 资质</h2>
-      <p className="text-sm text-muted -mt-3">
-        回答职能相关的 3 道选择题，自动计算资质倾向。你也可以手动调整各项数值。
-      </p>
+    <div className="agency-shell mx-auto max-w-3xl space-y-6 p-4 sm:p-6">
+      <div className="border-b-2 border-ink pb-4">
+        <p className="agency-kicker">Quality Assurance</p>
+        <h2 className="agency-title">Step 6 · 资质</h2>
+        <p className="mt-1 text-sm text-muted">
+          回答职能相关的 3 道选择题，自动计算资质倾向。你也可以手动调整各项数值。
+        </p>
+      </div>
 
       {!career ? (
-        <p className="text-sm text-muted text-center py-8">请先在 Step 4 中选择一个职能。</p>
+        <p className="border border-dashed border-ink/30 bg-white px-4 py-8 text-center text-sm text-muted">
+          请先在 Step 5 中选择一个职能。
+        </p>
       ) : (
         <>
           {/* Questions */}
@@ -43,12 +48,14 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
             {career.selfAssessment.map((q, i) => {
               const sel = choices[i];
               return (
-                <div key={i} className="bg-white rounded-xl border border-stone-200 p-5 space-y-3">
-                  <p className="text-sm font-medium text-ink">
-                    <span className="text-career font-bold mr-1">问题 {Q_LABELS[i]}</span>
+                <div key={i} className="agency-section space-y-3">
+                  <p className="text-sm font-bold text-ink">
+                    <span className="mr-2 bg-career px-2 py-1 text-[10px] font-black uppercase text-white">
+                      问题 {Q_LABELS[i]}
+                    </span>
                     {q.question}
                   </p>
-                  <div className="flex gap-3">
+                  <div className="grid gap-2 sm:grid-cols-2">
                     {q.options.map((opt) => {
                       const active = sel === opt.label;
                       return (
@@ -56,9 +63,9 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
                           key={opt.label}
                           onClick={() => onChoice(i, opt.label)}
                           className={
-                            'flex-1 text-left text-sm px-4 py-3 rounded-lg border transition ' +
+                            'agency-choice text-sm ' +
                             (active
-                              ? 'border-career bg-career-soft font-medium'
+                              ? 'border-career bg-career-soft font-bold'
                               : 'border-stone-200 hover:border-stone-400 bg-white')
                           }
                         >
@@ -79,14 +86,14 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
           {/* Recalc button */}
           <button
             onClick={recalcFromChoices}
-            className="px-4 py-2 bg-career text-white rounded-full text-sm font-medium hover:bg-career/90 transition"
+            className="agency-button bg-career text-white hover:bg-career/90"
           >
             计算资质
           </button>
 
           {/* Quality sliders */}
-          <div className="bg-white rounded-xl border border-stone-200 p-5">
-            <p className="text-sm font-medium text-ink mb-3">资质分配（可手动调整）</p>
+          <div className="agency-section">
+            <p className="mb-3 text-sm font-black text-ink">资质分配（可手动调整）</p>
             <div className="grid grid-cols-3 gap-3">
               {QUALITIES.map((q) => (
                 <div key={q} className="space-y-1">

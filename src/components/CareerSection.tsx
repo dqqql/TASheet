@@ -44,7 +44,10 @@ export default function CareerSection({
 
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 5 · 选择职能 C</h2>
+      <div className="mx-auto max-w-3xl">
+        <p className="agency-kicker">Control Yourself</p>
+        <h2 className="agency-title">Step 5 · 选择职能 C</h2>
+      </div>
       <SelectCard
         options={options}
         value={value}
@@ -56,20 +59,20 @@ export default function CareerSection({
         {data && (
           <div className="space-y-4 text-sm">
             <div>
-              <h3 className="font-bold text-career text-base">
+              <h3 className="text-base font-black text-career">
                 {data.nameZh}（{data.nameEn}）
               </h3>
               <p className="mt-1 whitespace-pre-line text-ink/80">{data.intro}</p>
             </div>
 
-            <div className="bg-white/60 rounded-lg p-4 space-y-1 border border-career/20">
-              <p className="font-medium text-career text-xs">最高原则</p>
-              <p className="font-bold text-ink text-base">"{data.primeDirective}"</p>
+            <div className="agency-section bg-white/80 space-y-1">
+              <p className="text-[10px] font-black uppercase text-career">最高原则</p>
+              <p className="text-base font-black text-ink">"{data.primeDirective}"</p>
               <p className="text-xs text-muted">{data.primeDirectiveEffect}</p>
             </div>
 
-            <div className="bg-white/60 rounded-lg p-4 space-y-1 border border-career/20">
-              <p className="font-medium text-career text-xs">授权行为</p>
+            <div className="agency-section bg-white/80 space-y-1">
+              <p className="text-[10px] font-black uppercase text-career">授权行为</p>
               <ol className="list-decimal list-inside text-ink/80 space-y-0.5">
                 {data.authorizedActions.map((a, i) => (
                   <li key={i}>{a}</li>
@@ -78,10 +81,10 @@ export default function CareerSection({
             </div>
 
             {data.specialQuestion && (
-              <div className="bg-white/60 rounded-lg p-4 border border-career/20">
-                <p className="font-medium text-ink text-xs mb-1">{data.specialQuestion}</p>
+              <div className="agency-section bg-white/80">
+                <p className="mb-1 text-xs font-bold text-ink">{data.specialQuestion}</p>
                 <textarea
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-xs focus:border-career focus:outline-none"
+                  className="agency-textarea text-xs focus:border-career"
                   rows={2}
                   value={specialAnswer}
                   onChange={(e) => onSpecialAnswer(e.target.value)}
@@ -94,22 +97,25 @@ export default function CareerSection({
 
       {/* Editable requisitions table */}
       {data && (
-        <div className="max-w-2xl mx-auto space-y-3">
+        <div className="agency-shell mx-auto max-w-3xl space-y-3 p-4 sm:p-5">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-ink">申领物与福利</h3>
+            <div>
+              <p className="agency-kicker">Requisitions</p>
+              <h3 className="agency-title text-base">申领物与福利</h3>
+            </div>
             <button
               onClick={addRow}
-              className="px-3 py-1 text-xs border border-career text-career rounded-full hover:bg-career-soft transition"
+              className="agency-button border-career bg-white text-career hover:bg-career-soft"
             >
               + 添加
             </button>
           </div>
-          <p className="text-xs text-muted -mt-2">
+          <p className="text-xs text-muted">
             选择职能后自动填入初始申领物及通用装备。可自行增删修改。
           </p>
 
           {requisitions.map((r, i) => (
-            <div key={i} className="bg-white rounded-xl border border-stone-200 overflow-hidden">
+            <div key={i} className="border border-stone-300 bg-white">
               <div className="grid grid-cols-[2fr_4fr_1fr] bg-career-soft text-xs font-bold text-career text-center">
                 <div className="p-2 border-r border-career/20">名称</div>
                 <div className="p-2 border-r border-career/20">效果</div>
@@ -117,12 +123,12 @@ export default function CareerSection({
               </div>
               <div className="grid grid-cols-[2fr_4fr_1fr]">
                 <input
-                  className="p-2 border-r border-stone-100 text-sm text-center focus:outline-none"
+                  className="border-r border-stone-200 p-2 text-center text-sm focus:outline-none focus:ring-2 focus:ring-career/20"
                   value={r.name}
                   onChange={(e) => updateRow(i, 'name', e.target.value)}
                 />
                 <textarea
-                  className="p-2 border-r border-stone-100 text-xs focus:outline-none resize-none overflow-hidden"
+                  className="resize-none overflow-hidden border-r border-stone-200 p-2 text-xs focus:outline-none focus:ring-2 focus:ring-career/20"
                   value={r.effect}
                   onChange={(e) => {
                     const el = e.target;
@@ -139,13 +145,13 @@ export default function CareerSection({
                 />
                 <div className="relative">
                   <input
-                    className="p-2 text-xs text-center focus:outline-none w-full"
+                    className="w-full p-2 text-center text-xs focus:outline-none focus:ring-2 focus:ring-career/20"
                     value={r.code}
                     onChange={(e) => updateRow(i, 'code', e.target.value)}
                   />
                   <button
                     onClick={() => removeRow(i)}
-                    className="absolute top-1 right-1 w-5 h-5 flex items-center justify-center text-red-400 hover:text-red-600 text-xs"
+                    className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center border border-transparent text-xs text-red-400 hover:border-red-300 hover:text-red-600"
                     title="删除"
                   >
                     ×

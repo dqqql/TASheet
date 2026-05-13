@@ -77,15 +77,27 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="no-print bg-ink text-white py-4 px-6 text-center">
-        <h1 className="text-lg font-black tracking-widest">三角机构 · 特工入职清单</h1>
-        <p className="text-xs text-white/50 mt-0.5">TRIANGLE AGENCY · AGENT ONBOARDING</p>
+      <header className="no-print border-b-2 border-ink bg-white">
+        <div className="mx-auto flex max-w-5xl items-stretch px-4">
+          <div className="flex w-20 items-center justify-center border-x-2 border-ink bg-ink text-white">
+            <span className="text-3xl font-black leading-none">△</span>
+          </div>
+          <div className="flex-1 px-4 py-4 sm:px-6">
+            <p className="agency-kicker">STABILIZE REALITY / CONTROL YOURSELF</p>
+            <h1 className="mt-1 text-2xl font-black text-ink sm:text-3xl">
+              三角机构 · 特工入职清单
+            </h1>
+            <p className="mt-1 text-xs font-bold uppercase text-career">
+              Triangle Agency · Agent Onboarding Form TA-ARC-07
+            </p>
+          </div>
+        </div>
       </header>
 
       <StepNav step={step} onStep={setStep} />
 
       {/* Main content */}
-      <main className="flex-1 px-4 pb-12 max-w-3xl mx-auto w-full space-y-8">
+      <main className="flex-1 px-4 pb-14 pt-4 max-w-5xl mx-auto w-full space-y-8">
         {step === 0 && (
           <BasicInfo
             characterName={form.characterName}
@@ -128,14 +140,17 @@ export default function App() {
             }}
           />
 
-          <div className="max-w-2xl mx-auto space-y-4">
-            <h3 className="text-sm font-medium text-ink mt-6 mb-2">入职问卷</h3>
-            <p className="text-xs text-muted -mt-2 mb-4">以下为通用入职问题，与所选现实无关。</p>
+          <div className="agency-shell mx-auto max-w-3xl space-y-4 p-4 sm:p-5">
+            <div className="border-b border-ink/20 pb-3">
+              <p className="agency-kicker">General Intake</p>
+              <h3 className="agency-title">入职问卷</h3>
+              <p className="mt-1 text-xs text-muted">以下为通用入职问题，与所选现实无关。</p>
+            </div>
             {GENERIC_ONBOARDING.map((q, i) => (
-              <div key={i} className="bg-white rounded-lg border border-stone-200 p-4">
-                <p className="text-sm font-medium text-ink mb-2">{i + 1}. {q}</p>
+              <div key={i} className="agency-section-soft">
+                <p className="text-sm font-bold text-ink">{String(i + 1).padStart(2, '0')} / {q}</p>
                 <textarea
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-xs focus:border-ink focus:outline-none"
+                  className="agency-textarea text-xs"
                   rows={2}
                   value={form.genericOnboardingAnswers[i] || ''}
                   onChange={(e) => {
@@ -190,25 +205,25 @@ export default function App() {
             <div className="no-print flex justify-center gap-3 flex-wrap">
               <button
                 onClick={handlePrint}
-                className="px-6 py-2 bg-ink text-white rounded-full text-sm font-bold hover:bg-ink/90 transition"
+                className="agency-button bg-ink text-white hover:bg-ink/90"
               >
                 打印 / 导出 PDF
               </button>
               <button
                 onClick={() => exportJson(form)}
-                className="px-6 py-2 bg-white border border-stone-300 rounded-full text-sm font-medium hover:bg-stone-100 transition"
+                className="agency-button bg-white text-ink hover:bg-stone-100"
               >
                 导出存档 JSON
               </button>
               <button
                 onClick={handleImport}
-                className="px-6 py-2 bg-white border border-stone-300 rounded-full text-sm font-medium hover:bg-stone-100 transition"
+                className="agency-button bg-white text-ink hover:bg-stone-100"
               >
                 导入存档 JSON
               </button>
               <button
                 onClick={handleClear}
-                className="px-6 py-2 bg-white border border-red-300 text-red-500 rounded-full text-sm font-medium hover:bg-red-50 transition"
+                className="agency-button border-career bg-white text-career hover:bg-career-soft"
               >
                 清空角色
               </button>
@@ -238,21 +253,21 @@ export default function App() {
       </main>
 
       {/* Step nav footer */}
-      <footer className="no-print flex justify-center gap-2 py-4 border-t border-stone-200 bg-white sticky bottom-0">
+      <footer className="no-print sticky bottom-0 flex justify-center gap-2 border-t-2 border-ink bg-white px-4 py-3">
         <button
           disabled={step === 0}
           onClick={() => setStep((s) => Math.max(0, s - 1))}
-          className="px-4 py-2 rounded-full text-sm border border-stone-300 disabled:opacity-30 hover:bg-stone-100 transition"
+          className="agency-button bg-white text-ink hover:bg-stone-100"
         >
           ← 上一步
         </button>
-        <span className="px-4 py-2 text-sm text-muted self-center">
+        <span className="border-y border-ink/20 px-4 py-2 text-sm font-black tabular-nums text-muted self-center">
           {step + 1} / 7
         </span>
         {!isLastStep ? (
           <button
             onClick={() => setStep((s) => Math.min(6, s + 1))}
-            className="px-6 py-2 rounded-full text-sm bg-ink text-white font-medium hover:bg-ink/90 transition"
+            className="agency-button bg-ink text-white hover:bg-ink/90"
           >
             下一步 →
           </button>

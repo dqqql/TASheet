@@ -14,11 +14,14 @@ export default function SelectCard<T extends string>({
   options, value, onChange, color, softColor, label, children,
 }: Props<T>) {
   return (
-    <div className="max-w-2xl mx-auto space-y-4">
-      <label className="block">
-        <span className="text-sm font-medium text-muted">{label}</span>
+    <div className="agency-shell mx-auto max-w-3xl space-y-4 p-4 sm:p-5">
+      <label className="grid gap-2 sm:grid-cols-[160px_1fr] sm:items-end">
+        <span>
+          <span className="agency-kicker">Classification</span>
+          <span className="agency-title block text-base">{label}</span>
+        </span>
         <select
-          className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm focus:border-ink focus:outline-none"
+          className="agency-input mt-0"
           value={value}
           onChange={(e) => onChange(e.target.value as T)}
         >
@@ -32,9 +35,20 @@ export default function SelectCard<T extends string>({
       </label>
       {children && (
         <div
-          className="rounded-xl p-5 border-l-4 space-y-3"
-          style={{ backgroundColor: softColor, borderLeftColor: color }}
+          className="space-y-3 border p-4 sm:p-5"
+          style={{ backgroundColor: softColor, borderColor: color }}
         >
+          <div className="flex items-center gap-2 border-b pb-3" style={{ borderColor: color }}>
+            <span
+              className="inline-flex h-7 w-7 items-center justify-center text-sm font-black text-white"
+              style={{ backgroundColor: color, clipPath: 'polygon(50% 0, 100% 100%, 0 100%)' }}
+            >
+              !
+            </span>
+            <span className="text-[10px] font-black uppercase" style={{ color }}>
+              Active Agency File
+            </span>
+          </div>
           {children}
         </div>
       )}

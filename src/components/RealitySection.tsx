@@ -18,7 +18,10 @@ export default function RealitySection({
 }: Props) {
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 3 · 选择现实 R</h2>
+      <div className="mx-auto max-w-3xl">
+        <p className="agency-kicker">Stabilize Reality</p>
+        <h2 className="agency-title">Step 3 · 选择现实 R</h2>
+      </div>
       <SelectCard
         options={options}
         value={value}
@@ -30,37 +33,37 @@ export default function RealitySection({
         {data && (
           <div className="space-y-4 text-sm">
             <div>
-              <h3 className="font-bold text-reality text-base">
+              <h3 className="text-base font-black text-reality">
                 {data.nameZh}（{data.nameEn}）
               </h3>
               <p className="mt-1 whitespace-pre-line text-ink/80">{data.intro}</p>
             </div>
 
             {data.special && (
-              <div className="bg-white/60 rounded-lg p-4 border border-reality/20">
-                <p className="font-medium text-reality text-xs mb-1">特殊</p>
+              <div className="agency-section bg-white/80">
+                <p className="mb-1 text-[10px] font-black uppercase text-reality">特殊</p>
                 <p className="whitespace-pre-line text-ink/80">{data.special}</p>
               </div>
             )}
 
-            <div className="bg-white/60 rounded-lg p-4 space-y-1 border border-reality/20">
-              <p className="font-medium text-reality text-xs">现实触发器 · {data.triggerName}</p>
+            <div className="agency-section bg-white/80 space-y-1">
+              <p className="text-[10px] font-black uppercase text-reality">现实触发器 · {data.triggerName}</p>
               <p className="whitespace-pre-line text-ink/80">{data.triggerEffect}</p>
             </div>
 
-            <div className="bg-white/60 rounded-lg p-4 space-y-1 border border-reality/20">
-              <p className="font-medium text-reality text-xs">过载释放 · {data.overloadReleaseName}</p>
+            <div className="agency-section bg-white/80 space-y-1">
+              <p className="text-[10px] font-black uppercase text-reality">过载释放 · {data.overloadReleaseName}</p>
               <p className="text-ink/80">{data.overloadReleaseEffect}</p>
             </div>
 
             {data.personalQuestion && (
-              <div className="bg-white/60 rounded-lg p-4 border border-reality/20">
-                <p className="font-medium text-ink text-xs mb-1">{data.personalQuestion}</p>
+              <div className="agency-section bg-white/80">
+                <p className="mb-1 text-xs font-bold text-ink">{data.personalQuestion}</p>
                 {data.personalQuestionHint && (
                   <p className="text-xs text-muted mb-2 whitespace-pre-line">{data.personalQuestionHint}</p>
                 )}
                 <textarea
-                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-xs focus:border-reality focus:outline-none"
+                  className="agency-textarea text-xs focus:border-reality"
                   rows={2}
                   value={specialAnswer}
                   onChange={(e) => onSpecialAnswer(e.target.value)}
@@ -69,12 +72,12 @@ export default function RealitySection({
             )}
 
             <div className="space-y-3">
-              <p className="font-medium text-reality text-xs">现实问答</p>
+              <p className="agency-kicker text-reality">Reality Interview</p>
               {data.onboardingQuestions.map((q, i) => (
-                <div key={i} className="bg-white/60 rounded-lg p-3 border border-reality/20">
-                  <p className="text-xs font-medium text-ink mb-1">{i + 1}. {q}</p>
+                <div key={i} className="agency-section-soft bg-white/80">
+                  <p className="mb-1 text-xs font-bold text-ink">{String(i + 1).padStart(2, '0')} / {q}</p>
                   <textarea
-                    className="w-full rounded-lg border border-stone-300 px-3 py-2 text-xs focus:border-reality focus:outline-none"
+                    className="agency-textarea text-xs focus:border-reality"
                     rows={2}
                     value={onboardingAnswers[i] || ''}
                     onChange={(e) => onOnboardingAnswer(i, e.target.value)}

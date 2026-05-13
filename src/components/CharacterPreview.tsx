@@ -196,7 +196,7 @@ function AbilityCard({ ability, choice }: {
   choice?: 'a' | 'b';
 }) {
   return (
-    <div style={{ border: '1px solid #bdd2e6', borderRadius: 10, overflow: 'hidden', marginBottom: 14 }}>
+    <div style={{ border: '1px solid #bdd2e6', overflow: 'hidden', marginBottom: 14 }}>
       {/* Header */}
       <div style={{ display: 'grid', gridTemplateColumns: '45% 40% 15%', background: '#eaf2fb', fontSize: 14, fontWeight: 900, color: blue, textAlign: 'center' }}>
         <div style={{ padding: '10px 10px', borderRight: '1px solid #bdd2e6' }}>能力 · {ability.name}</div>
@@ -221,7 +221,7 @@ function AbilityCard({ ability, choice }: {
           <div style={{ fontSize: 11, color: navy, lineHeight: 1.6 }}>{ability.failure}</div>
 
           {/* Q&A */}
-          <div style={{ background: '#f8fafc', padding: 8, marginTop: 10, borderRadius: 6, fontSize: 11, color: blue }}>
+          <div style={{ background: '#f8fafc', padding: 8, marginTop: 10, fontSize: 11, color: blue }}>
             <div style={{ fontWeight: 700, marginBottom: 4 }}>
               问：{ability.question}
             </div>
@@ -265,7 +265,7 @@ function Page2({ anomaly, abilityAnswers }: { anomaly: Anomaly | null; abilityAn
 
 function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
   return (
-    <div style={{ border: `2px solid ${yellow}`, borderRadius: 10, overflow: 'hidden' }}>
+    <div style={{ border: `2px solid ${yellow}`, overflow: 'hidden' }}>
       {/* Header */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', background: '#fffbeb', fontWeight: 900, fontSize: 11 }}>
         <div style={{ padding: '8px 10px', borderRight: `1px solid ${yellow}`, color: '#b98a13' }}>
@@ -292,7 +292,7 @@ function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
             <span style={{ fontSize: 16 }}>▶</span>
             {Array.from({ length: 9 }).map((_, i) => (
-              <div key={i} style={{ width: 16, height: 16, borderRadius: '50%', border: `2px solid ${yellow}`, background: '#fff' }} />
+              <div key={i} style={{ width: 16, height: 16, border: `2px solid ${yellow}`, background: '#fff' }} />
             ))}
             <span style={{ color: yellow, fontWeight: 900 }}>◎</span>
           </div>
@@ -313,7 +313,7 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
         </div>
       </div>
 
-      <div style={{ border: '1px solid #e5e0d0', borderRadius: 8, padding: 10, marginBottom: 18, fontWeight: 900, fontSize: 18, color: navy, width: 260 }}>
+      <div style={{ border: '1px solid #e5e0d0', padding: 10, marginBottom: 18, fontWeight: 900, fontSize: 18, color: navy, width: 260 }}>
         ◎ 关系网内的关系
       </div>
 
@@ -347,11 +347,11 @@ function Page4({ form }: { form: Props; reality: Reality | null; career: Career 
         return (
           <div key={i} style={{ marginBottom: hasAnswer ? 14 : 24 }}>
             <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
-              <span style={{ display: 'inline-flex', width: 20, height: 20, borderRadius: '50%', background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
+              <span style={{ display: 'inline-flex', width: 20, height: 20, background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
               {q}
             </div>
             {hasAnswer ? (
-              <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', borderRadius: 4, lineHeight: 1.5 }}>
+              <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', lineHeight: 1.5 }}>
                 {answer}
               </div>
             ) : (
@@ -385,7 +385,7 @@ function Page5({ career, requisitions }: { career: Career | null; requisitions: 
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {items.map((r, i) => (
-          <div key={i} style={{ border: `2px solid #efc6cf`, borderRadius: 10, overflow: 'hidden' }}>
+          <div key={i} style={{ border: `2px solid #efc6cf`, overflow: 'hidden' }}>
             {/* Header */}
             <div style={{ display: 'grid', gridTemplateColumns: '31% 51% 18%', background: '#ffe4e8', fontWeight: 900, fontSize: 14, color: red, textAlign: 'center' }}>
               <div style={{ padding: '12px 12px', borderRight: '1px solid #efc6cf' }}>名称</div>
