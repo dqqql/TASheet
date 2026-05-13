@@ -1,5 +1,5 @@
 import type { Anomaly, Reality, Career, RelationshipEntry, QualityName } from '../types/arc';
-import { QUALITIES } from '../types/arc';
+import { QUALITIES, GENERIC_ONBOARDING } from '../types/arc';
 
 const navy = '#21143f';
 const red = '#cf1f45';
@@ -16,6 +16,7 @@ interface Props {
   realitySpecialAnswer: string;
   careerSpecialAnswer: string;
   onboardingAnswers: string[];
+  genericOnboardingAnswers: string[];
   relationships: RelationshipEntry[];
   qualityScores: Record<QualityName, number>;
 }
@@ -157,7 +158,7 @@ function Page1({ form, anomaly, reality, career }: {
           <FieldLine label="人称代词" value={form.pronouns} />
 
           <div style={{ marginTop: 4, marginBottom: 16 }}>
-            <TriLogo letter="A" color={blue} label={anomaly ? `异常体 · ${anomaly.nameZh}` : '异常体'} />
+            <TriLogo letter="A" color={blue} label={anomaly ? `异常 · ${anomaly.nameZh}` : '异常'} />
             <TriLogo letter="R" color={yellow} label={reality ? `现实 · ${reality.nameZh}` : '现实'} />
             <TriLogo letter="C" color={red} label={career ? `职能 · ${career.nameZh}` : '职能'} />
           </div>
@@ -249,7 +250,7 @@ function Page2({ anomaly, abilityAnswers }: { anomaly: Anomaly | null; abilityAn
           <AbilityCard key={i} ability={ab} index={i} choice={abilityAnswers[ab.name]} />
         ))
       ) : (
-        <p style={{ color: '#94a3b8', fontSize: 13 }}>（未选择异常体）</p>
+        <p style={{ color: '#94a3b8', fontSize: 13 }}>（未选择异常）</p>
       )}
     </Page>
   );
@@ -324,13 +325,9 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
 
 /* ── Page 4: Questionnaire + Career Credentials ── */
 
-function Page4({ form, reality, career }: { form: Props; reality: Reality | null; career: Career | null }) {
-  const questions: string[] = [];
-  if (reality) questions.push(...reality.onboardingQuestions);
-  // add career special question if any
-  if (career?.specialQuestion) questions.push(career.specialQuestion);
-  // pad to at least 7
-  while (questions.length < 7) questions.push('');
+function Page4({ form, reality: _reality, career }: { form: Props; reality: Reality | null; career: Career | null }) {
+  const questions = GENERIC_ONBOARDING;
+  const answers = form.genericOnboardingAnswers || [];
 
   return (
     <Page>
@@ -343,14 +340,13 @@ function Page4({ form, reality, career }: { form: Props; reality: Reality | null
           </p>
 
           {questions.map((q, i) => {
-            // Determine answer: first 3 from onboarding, rest from special
-            const answer = i < 3 ? form.onboardingAnswers[i] : (i === 3 && career?.specialQuestion ? form.careerSpecialAnswer : '');
+            const answer = answers[i];
             const hasAnswer = !!(answer && answer.trim());
             return (
               <div key={i} style={{ marginBottom: hasAnswer ? 14 : 24 }}>
                 <div style={{ fontWeight: 900, color: navy, fontSize: 13 }}>
                   <span style={{ display: 'inline-flex', width: 20, height: 20, borderRadius: '50%', background: red, color: '#fff', alignItems: 'center', justifyContent: 'center', marginRight: 6, fontSize: 11 }}>{i + 1}</span>
-                  {q || '（补充说明）'}
+                  {q}
                 </div>
                 {hasAnswer ? (
                   <div style={{ marginLeft: 28, marginTop: 4, fontSize: 11, color: navy, background: '#f8fafc', padding: '4px 8px', borderRadius: 4, lineHeight: 1.5 }}>

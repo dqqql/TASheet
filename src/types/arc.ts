@@ -97,11 +97,22 @@ export interface CharacterFormState {
   relationships: RelationshipEntry[];
   assessmentChoices: Record<number, 'a' | 'b'>;
   qualityScores: Record<QualityName, number>;
+  genericOnboardingAnswers: string[];
 }
 
 export const QUALITIES: QualityName[] = [
   '专注', '欺瞒', '活力', '共情', '主动',
   '坚毅', '气场', '专业', '诡秘',
+];
+
+export const GENERIC_ONBOARDING = [
+  '你是如何与你的异常接触的？',
+  '机构是如何找到你的？',
+  '你的能力有独特的外在视觉表现吗？',
+  '你喝咖啡有什么偏好？',
+  '请描述你过往的工作经历。',
+  '你对办公软件的熟悉程度如何？',
+  '在协作型工作环境中，你能做出什么贡献？',
 ];
 
 export function defaultScores(): Record<QualityName, number> {
@@ -122,5 +133,6 @@ export function emptyForm(): CharacterFormState {
     relationships: [],
     assessmentChoices: {},
     qualityScores: defaultScores(),
+    genericOnboardingAnswers: ['', '', '', '', '', '', ''],
   };
 }

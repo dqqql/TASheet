@@ -29,7 +29,7 @@ export default function SelfAssessment({ career, choices, onChoice, scores, onSc
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 5 · 自我评估</h2>
+      <h2 className="text-lg font-bold text-ink">Step 5 · 资质</h2>
       <p className="text-sm text-muted -mt-3">
         回答职能相关的 3 道选择题，自动计算资质倾向。你也可以手动调整各项数值。
       </p>

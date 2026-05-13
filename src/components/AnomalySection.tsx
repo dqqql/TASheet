@@ -13,14 +13,14 @@ interface Props {
 export default function AnomalySection({ options, value, onChange, data, answers, onAnswer }: Props) {
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 2 · 选择异常体 A</h2>
+      <h2 className="text-lg font-bold text-ink">Step 2 · 选择异常 A</h2>
       <SelectCard
         options={options}
         value={value}
         onChange={onChange}
         color="#1F5EA8"
         softColor="#EAF2FB"
-        label="异常共鸣类型"
+        label="异常类型"
       >
         {data && (
           <div className="space-y-4 text-sm">

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Anomaly, Reality, Career, CharacterFormState, RelationshipEntry, QualityName } from './types/arc';
-import { emptyForm } from './types/arc';
+import { emptyForm, GENERIC_ONBOARDING } from './types/arc';
 import { loadForm, saveForm, clearForm, exportJson, importJson } from './utils/storage';
 import anomaliesRaw from './data/anomalies.json';
 import realitiesRaw from './data/realities.json';
@@ -107,7 +107,7 @@ export default function App() {
           />
         )}
 
-        {step === 2 && (
+        {step === 2 && (<>
           <RealitySection
             options={realityOptions}
             value={form.realityId}
@@ -122,7 +122,28 @@ export default function App() {
               update('onboardingAnswers', next);
             }}
           />
-        )}
+
+          <div className="max-w-2xl mx-auto space-y-4">
+            <h3 className="text-sm font-medium text-ink mt-6 mb-2">入职问卷</h3>
+            <p className="text-xs text-muted -mt-2 mb-4">以下为通用入职问题，与所选现实无关。</p>
+            {GENERIC_ONBOARDING.map((q, i) => (
+              <div key={i} className="bg-white rounded-lg border border-stone-200 p-4">
+                <p className="text-sm font-medium text-ink mb-2">{i + 1}. {q}</p>
+                <textarea
+                  className="w-full rounded-lg border border-stone-300 px-3 py-2 text-xs focus:border-ink focus:outline-none"
+                  rows={2}
+                  value={form.genericOnboardingAnswers[i] || ''}
+                  onChange={(e) => {
+                    const next = [...form.genericOnboardingAnswers];
+                    next[i] = e.target.value;
+                    update('genericOnboardingAnswers', next);
+                  }}
+                  placeholder="在此填写……"
+                />
+              </div>
+            ))}
+          </div>
+        </>)}
 
         {step === 3 && (
           <RelationshipEditor
@@ -196,6 +217,7 @@ export default function App() {
               realitySpecialAnswer={form.realitySpecialAnswer}
               careerSpecialAnswer={form.careerSpecialAnswer}
               onboardingAnswers={form.onboardingAnswers}
+              genericOnboardingAnswers={form.genericOnboardingAnswers}
               relationships={form.relationships}
               qualityScores={form.qualityScores}
             />

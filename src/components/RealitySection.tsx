@@ -18,14 +18,14 @@ export default function RealitySection({
 }: Props) {
   return (
     <div className="space-y-6">
-      <h2 className="text-lg font-bold text-ink">Step 3 · 选择现实身份 R</h2>
+      <h2 className="text-lg font-bold text-ink">Step 3 · 选择现实 R</h2>
       <SelectCard
         options={options}
         value={value}
         onChange={onChange}
         color="#E7A900"
         softColor="#FFF6DE"
-        label="现实身份"
+        label="现实"
       >
         {data && (
           <div className="space-y-4 text-sm">
@@ -70,7 +70,7 @@ export default function RealitySection({
             )}
 
             <div className="space-y-3">
-              <p className="font-medium text-reality text-xs">入职问卷</p>
+              <p className="font-medium text-reality text-xs">现实问答</p>
               {data.onboardingQuestions.map((q, i) => (
                 <div key={i} className="bg-white/60 rounded-lg p-3 border border-reality/20">
                   <p className="text-xs font-medium text-ink mb-1">{i + 1}. {q}</p>

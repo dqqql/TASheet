@@ -1,4 +1,4 @@
-const STEPS = ['基础信息', '异常体', '现实身份', '人际关系', '职能', '自我评估', '预览导出'];
+const STEPS = ['基础信息', '异常', '现实', '人际关系', '职能', '资质', '预览导出'];
 
 export default function StepNav({ step, onStep }: { step: number; onStep: (s: number) => void }) {
   return (

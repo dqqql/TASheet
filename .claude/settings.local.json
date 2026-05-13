@@ -27,7 +27,9 @@
       "Bash(cmd.exe /c \"dir D:\\\\git\\\\Git\\\\cmd\\\\git.exe\")",
       "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet add src/components/CharacterPreview.tsx src/index.css .gitignore)",
       "Bash(D:/git/Git/cmd/git.exe -C D:/Dql/Desktop/tasheet commit -m '重新设计预览界面为 4 页官方角色卡排版' -m '- 基于 pdf_pages_1_3_5_7_recreation.jsx 的设计语言 *)",
-      "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet push)"
+      "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet push)",
+      "Bash(\"D:/git/Git/cmd/git.exe\" -C D:/Dql/Desktop/tasheet add -A)",
+      "Bash(D:/git/Git/cmd/git.exe -C D:/Dql/Desktop/tasheet commit -m '拆分入职问卷为现实问答和通用入职问卷，统一 ARC 中文名称' -m '- 入职问卷改为通用 7 题，不再与所选现实绑定，在 Step 2 下方填写 *)"
     ]
   }
 }
