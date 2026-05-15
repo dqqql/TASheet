@@ -27,6 +27,18 @@ const anomalyOptions = anomalyList.map((a) => ({ id: a.id, nameZh: a.nameZh, nam
 const realityOptions = realityList.map((r) => ({ id: r.id, nameZh: r.nameZh, nameEn: r.nameEn }));
 const careerOptions = careerList.map((c) => ({ id: c.id, nameZh: c.nameZh, nameEn: c.nameEn }));
 
+const INVALID_FILENAME_CHARS = /[<>:"/\\|?*\u0000-\u001F]/g;
+
+function sanitizeFilenamePart(value: string | undefined, fallback: string) {
+  const sanitized = (value ?? '')
+    .trim()
+    .replace(INVALID_FILENAME_CHARS, '-')
+    .replace(/\s+/g, ' ')
+    .replace(/[. ]+$/g, '');
+
+  return sanitized || fallback;
+}
+
 export default function App() {
   const [form, setForm] = useState<CharacterFormState>(() => loadForm());
   const [step, setStep] = useState(0);
@@ -62,7 +74,25 @@ export default function App() {
   const reality = realityList.find((r) => r.id === form.realityId) || null;
   const career = careerList.find((c) => c.id === form.careerId) || null;
 
-  const handlePrint = () => window.print();
+  const handlePrint = () => {
+    const originalTitle = document.title;
+    const pdfBaseName = [
+      sanitizeFilenamePart(form.characterName, 'triangle-agency-character'),
+      sanitizeFilenamePart(anomaly?.nameZh, 'A'),
+      sanitizeFilenamePart(reality?.nameZh, 'R'),
+      sanitizeFilenamePart(career?.nameZh, 'C'),
+    ].join('-');
+
+    const restoreTitle = () => {
+      document.title = originalTitle;
+      window.removeEventListener('afterprint', restoreTitle);
+    };
+
+    document.title = pdfBaseName;
+    window.addEventListener('afterprint', restoreTitle);
+    window.print();
+    restoreTitle();
+  };
   const handleClear = () => { if (confirm('确定要清空当前角色数据吗？')) { clearForm(); setForm(emptyForm()); setStep(0); } };
   const handleImport = async () => {
     try {
