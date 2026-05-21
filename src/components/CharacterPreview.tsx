@@ -208,6 +208,10 @@ function AbilityCard({ ability, choice }: {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, padding: 14 }}>
         {/* Success */}
         <div>
+          <div style={{ marginBottom: 10, padding: '8px 10px', background: '#f8fafc', borderLeft: `3px solid ${yellow}` }}>
+            <div style={{ fontWeight: 900, marginBottom: 4, color: yellow, fontSize: 14 }}>触发</div>
+            <div style={{ fontSize: 11, color: navy, lineHeight: 1.6 }}>{ability.trigger}</div>
+          </div>
           <div style={{ fontWeight: 900, marginBottom: 6, color: blue, fontSize: 14 }}>▲ 成功时，</div>
           <div style={{ fontSize: 11, color: navy, lineHeight: 1.6 }}>{ability.success}</div>
           <div style={{ marginTop: 8, fontSize: 11, color: navy }}>
