@@ -13,6 +13,7 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
     name: '',
     player: '',
     description: '',
+    bondProgress: 0,
     bondRewardId: '',
     bondBonus: '',
   });
@@ -54,6 +55,7 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
         {prompts.map((p, i) => {
           const e = entries[i] || emptyEntry(p.question);
           const rewardId = e.bondRewardId || (e.bondBonus ? 'custom' : '');
+          const bondProgress = e.bondProgress ?? 0;
           return (
             <div key={i} className="agency-section space-y-3">
               <p className="text-sm font-bold text-ink">
@@ -95,6 +97,46 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                 />
               </label>
               <div className="space-y-3">
+                <div>
+                  <span className="agency-label">连结进度</span>
+                  <div className="mt-2">
+                    <div className="grid grid-cols-10 items-center text-[10px] font-black text-reality">
+                      {Array.from({ length: 10 }).map((_, n) => (
+                        <span key={n} className="text-center">{n}</span>
+                      ))}
+                    </div>
+                    <div className="mt-1 grid grid-cols-10 items-center">
+                      {Array.from({ length: 10 }).map((_, n) => {
+                        const selected = bondProgress === n;
+                        const filled = n <= bondProgress;
+                        return (
+                          <button
+                            key={n}
+                            type="button"
+                            aria-label={`连结进度 ${n}`}
+                            aria-pressed={selected}
+                            onClick={() => update(i, 'bondProgress', n)}
+                            className="flex h-7 items-center justify-center border-0 bg-transparent p-0"
+                          >
+                            {n === 0 ? (
+                              <span className={filled ? 'text-base leading-none text-reality' : 'text-base leading-none text-stone-300'}>
+                                ▶
+                              </span>
+                            ) : (
+                              <span
+                                className={
+                                  'h-4 w-4 border-2 ' +
+                                  (filled ? 'border-reality bg-reality' : 'border-reality bg-white') +
+                                  (selected ? ' ring-2 ring-ink/25 ring-offset-1' : '')
+                                }
+                              />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
                 <label className="block">
                   <span className="agency-label">连结加成</span>
                   <select

@@ -82,6 +82,7 @@ export interface RelationshipEntry {
   name: string;
   player: string;
   description: string;
+  bondProgress?: number;
   bondRewardId: string;
   bondBonus: string;
 }

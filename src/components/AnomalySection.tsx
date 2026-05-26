@@ -7,7 +7,7 @@ interface Props {
   onChange: (id: string) => void;
   data: Anomaly | null;
   answers: Record<string, 'a' | 'b'>;
-  onAnswer: (abilityName: string, choice: 'a' | 'b') => void;
+  onAnswer: (abilityName: string, choice?: 'a' | 'b') => void;
 }
 
 export default function AnomalySection({ options, value, onChange, data, answers, onAnswer }: Props) {
@@ -57,7 +57,7 @@ export default function AnomalySection({ options, value, onChange, data, answers
                         return (
                           <button
                             key={ans.label}
-                            onClick={() => onAnswer(ab.name, ans.label)}
+                            onClick={() => onAnswer(ab.name, sel ? undefined : ans.label)}
                             className={
                               'agency-choice ' +
                               (sel

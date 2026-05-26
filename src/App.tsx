@@ -59,8 +59,8 @@ export default function App() {
       const entries: RelationshipEntry[] = reality.relationshipPrompts.map((p, i) => {
         const existing = form.relationships[i];
         return existing && existing.prompt === p.question
-          ? { ...existing, bondRewardId: existing.bondRewardId ?? '', bondBonus: existing.bondBonus ?? '' }
-          : { prompt: p.question, name: '', player: '', description: '', bondRewardId: '', bondBonus: '' };
+          ? { ...existing, bondProgress: existing.bondProgress ?? 0, bondRewardId: existing.bondRewardId ?? '', bondBonus: existing.bondBonus ?? '' }
+          : { prompt: p.question, name: '', player: '', description: '', bondProgress: 0, bondRewardId: '', bondBonus: '' };
       });
       setForm((prev) => ({ ...prev, relationships: entries }));
     }
@@ -148,9 +148,12 @@ export default function App() {
             onChange={(id) => update('anomalyId', id)}
             data={anomaly}
             answers={form.abilityAnswers}
-            onAnswer={(name, choice) =>
-              update('abilityAnswers', { ...form.abilityAnswers, [name]: choice })
-            }
+            onAnswer={(name, choice) => {
+              const next = { ...form.abilityAnswers };
+              if (choice) next[name] = choice;
+              else delete next[name];
+              update('abilityAnswers', next);
+            }}
           />
         )}
 

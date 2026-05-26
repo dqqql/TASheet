@@ -269,6 +269,7 @@ function Page2({ anomaly, abilityAnswers }: { anomaly: Anomaly | null; abilityAn
 
 function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
   const bondBonus = entry.bondBonus ?? '';
+  const bondProgress = entry.bondProgress ?? 0;
 
   return (
     <div style={{ border: `2px solid ${yellow}`, overflow: 'hidden' }}>
@@ -299,11 +300,14 @@ function RelationCard({ entry }: { entry: RelationshipEntry; index?: number }) {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(10, 1fr)', alignItems: 'center' }}>
             <span style={{ color: yellow, fontSize: 16, lineHeight: 1, textAlign: 'center' }}>▶</span>
-            {Array.from({ length: 9 }).map((_, i) => (
-              <span key={i} style={{ display: 'flex', justifyContent: 'center' }}>
-                <span style={{ width: 14, height: 14, border: `2px solid ${yellow}`, background: '#fff' }} />
-              </span>
-            ))}
+            {Array.from({ length: 9 }).map((_, i) => {
+              const value = i + 1;
+              return (
+                <span key={i} style={{ display: 'flex', justifyContent: 'center' }}>
+                  <span style={{ width: 14, height: 14, border: `2px solid ${yellow}`, background: value <= bondProgress ? yellow : '#fff' }} />
+                </span>
+              );
+            })}
           </div>
         </div>
 
@@ -347,7 +351,7 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
         {relationships.length > 0 ? (
           relationships.map((r, i) => <RelationCard key={i} entry={r} index={i} />)
         ) : (
-          Array.from({ length: 6 }).map((_, i) => <RelationCard key={i} entry={{ prompt: '', name: '', player: '', description: '', bondRewardId: '', bondBonus: '' }} index={i} />)
+          Array.from({ length: 6 }).map((_, i) => <RelationCard key={i} entry={{ prompt: '', name: '', player: '', description: '', bondProgress: 0, bondRewardId: '', bondBonus: '' }} index={i} />)
         )}
       </div>
     </Page>
