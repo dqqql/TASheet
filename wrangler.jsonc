@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tasheet",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-05-27",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tasheet-feedback",
+      "database_id": "9af9f26d-3bb0-4466-838d-073c4e028c36"
+    }
+  ]
+}

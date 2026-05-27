@@ -18,6 +18,8 @@ import RelationshipEditor from './components/RelationshipEditor';
 import CareerSection from './components/CareerSection';
 import SelfAssessment from './components/SelfAssessment';
 import CharacterPreview from './components/CharacterPreview';
+import UpdateAnnouncementDialog from './components/UpdateAnnouncementDialog';
+import FeedbackDialog from './components/FeedbackDialog';
 
 const anomalyList = Object.values(anomaliesData);
 const realityList = Object.values(realitiesData);
@@ -42,6 +44,8 @@ function sanitizeFilenamePart(value: string | undefined, fallback: string) {
 export default function App() {
   const [form, setForm] = useState<CharacterFormState>(() => loadForm());
   const [step, setStep] = useState(0);
+  const [updatesOpen, setUpdatesOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
   const initRef = useRef(false);
 
   // Auto-save
@@ -121,6 +125,24 @@ export default function App() {
               Triangle Agency · Agent Onboarding Form TA-ARC-07
             </p>
           </div>
+          <div className="hidden items-center border-r-2 border-ink px-3 sm:flex">
+            <button
+              type="button"
+              onClick={() => setUpdatesOpen(true)}
+              className="agency-button bg-reality text-white hover:bg-reality/90"
+            >
+              更新公告
+            </button>
+          </div>
+        </div>
+        <div className="border-t border-ink/20 px-4 py-3 sm:hidden">
+          <button
+            type="button"
+            onClick={() => setUpdatesOpen(true)}
+            className="agency-button w-full bg-reality text-white hover:bg-reality/90"
+          >
+            更新公告
+          </button>
         </div>
       </header>
 
@@ -237,6 +259,12 @@ export default function App() {
           <div className="space-y-4">
             <div className="no-print flex justify-center gap-3 flex-wrap">
               <button
+                onClick={() => setFeedbackOpen(true)}
+                className="agency-button bg-anomaly text-white hover:bg-anomaly/90"
+              >
+                建议 / 反馈
+              </button>
+              <button
                 onClick={handlePrint}
                 className="agency-button bg-ink text-white hover:bg-ink/90"
               >
@@ -306,6 +334,8 @@ export default function App() {
           </button>
         ) : null}
       </footer>
+      <UpdateAnnouncementDialog open={updatesOpen} onClose={() => setUpdatesOpen(false)} />
+      <FeedbackDialog open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </div>
   );
 }
