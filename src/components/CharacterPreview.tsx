@@ -249,7 +249,6 @@ function Page2({ anomaly, abilityAnswers }: { anomaly: Anomaly | null; abilityAn
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 18 }}>
         <h1 style={{ fontSize: 30, fontWeight: 900, color: navy, margin: 0 }}>异常能力</h1>
         <div style={{ width: 220 }}>
-          <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>角色姓名 __________________</div>
           <TriLogo letter="A" color={blue} label={anomaly ? anomaly.nameZh : '异常'} />
         </div>
       </div>
@@ -338,7 +337,6 @@ function Page3({ reality, relationships }: { reality: Reality | null; relationsh
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 18 }}>
         <h1 style={{ fontSize: 30, fontWeight: 900, color: navy, margin: 0 }}>关系</h1>
         <div style={{ width: 220 }}>
-          <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>角色姓名 __________________</div>
           <TriLogo letter="R" color={yellow} label={reality ? reality.nameZh : '现实'} />
         </div>
       </div>
@@ -454,7 +452,6 @@ function Page5({ career, requisitions }: { career: Career | null; requisitions: 
           申领物<br />与福利
         </h1>
         <div style={{ width: 260 }}>
-          <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, marginBottom: 4 }}>角色姓名 __________________</div>
           <TriLogo letter="C" color={red} label={career ? `职能 · ${career.nameZh}` : '职能'} />
         </div>
       </div>
