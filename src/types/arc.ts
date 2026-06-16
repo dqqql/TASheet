@@ -1,6 +1,6 @@
 export type QualityName =
-  | '专注' | '欺瞒' | '活力' | '共情' | '主动'
-  | '坚毅' | '气场' | '专业' | '诡秘';
+  | '洞察' | '欺瞒' | '进取' | '共情' | '主动'
+  | '执着' | '气场' | '专业' | '隐秘';
 
 export interface AbilityAnswer {
   label: 'a' | 'b';
@@ -135,8 +135,8 @@ export interface CharacterFormState {
 }
 
 export const QUALITIES: QualityName[] = [
-  '专注', '欺瞒', '活力', '共情', '主动',
-  '坚毅', '气场', '专业', '诡秘',
+  '洞察', '欺瞒', '进取', '共情', '主动',
+  '执着', '气场', '专业', '隐秘',
 ];
 
 export const GENERIC_ONBOARDING = [
@@ -218,7 +218,7 @@ export const CONNECTION_REWARDS: ConnectionReward[] = [
 ];
 
 export function defaultScores(): Record<QualityName, number> {
-  return { 专注: 0, 欺瞒: 0, 活力: 0, 共情: 0, 主动: 0, 坚毅: 0, 气场: 0, 专业: 0, 诡秘: 0 };
+  return { 洞察: 0, 欺瞒: 0, 进取: 0, 共情: 0, 主动: 0, 执着: 0, 气场: 0, 专业: 0, 隐秘: 0 };
 }
 
 export function emptyForm(): CharacterFormState {
