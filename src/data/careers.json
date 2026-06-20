@@ -11,7 +11,7 @@
         "question": "当同事在公众场合出糗时，我会……",
         "options": [
           { "label": "a", "text": "大声赞叹“好前卫啊！”", "quality": "气场" },
-          { "label": "b", "text": "重复他们的行为，直到它看起来见怪不怪", "quality": "坚毅" }
+          { "label": "b", "text": "重复他们的行为，直到它看起来见怪不怪", "quality": "执着" }
         ]
       },
       {
@@ -25,7 +25,7 @@
         "question": "有一位同事被谋杀了！我……",
         "options": [
           { "label": "a", "text": "正是凶手", "quality": "主动" },
-          { "label": "b", "text": "即将获得升职", "quality": "诡秘" }
+          { "label": "b", "text": "即将获得升职", "quality": "隐秘" }
         ]
       }
     ],
@@ -49,21 +49,21 @@
         "question": "如果一开始没成功……",
         "options": [
           { "label": "a", "text": "绝不让人看到你哭", "quality": "专业" },
-          { "label": "b", "text": "试了又试，试了又试，试了又试。", "quality": "坚毅" }
+          { "label": "b", "text": "试了又试，试了又试，试了又试。", "quality": "执着" }
         ]
       },
       {
         "question": "当我在解一道方程，而结果看似荒谬时，我会……",
         "options": [
           { "label": "a", "text": "提醒自己出错是正常的", "quality": "共情" },
-          { "label": "b", "text": "排除所有其他可能性", "quality": "活力" }
+          { "label": "b", "text": "排除所有其他可能性", "quality": "进取" }
         ]
       },
       {
         "question": "我被诬陷了！我会这样自证清白……",
         "options": [
-          { "label": "a", "text": "销毁所有罪证", "quality": "诡秘" },
-          { "label": "b", "text": "嫁祸给一个更可疑的嫌疑人", "quality": "专注" }
+          { "label": "a", "text": "销毁所有罪证", "quality": "隐秘" },
+          { "label": "b", "text": "嫁祸给一个更可疑的嫌疑人", "quality": "洞察" }
         ]
       }
     ],
@@ -102,8 +102,8 @@
       {
         "question": "某位顾客投诉我的服务，我会……",
         "options": [
-          { "label": "a", "text": "往他们的咖啡里加点东西", "quality": "诡秘" },
-          { "label": "b", "text": "把他们“加入”咖啡里", "quality": "活力" }
+          { "label": "a", "text": "往他们的咖啡里加点东西", "quality": "隐秘" },
+          { "label": "b", "text": "把他们“加入”咖啡里", "quality": "进取" }
         ]
       }
     ],
@@ -128,7 +128,7 @@
       {
         "question": "我的管理风格最能用下列方式描述……",
         "options": [
-          { "label": "a", "text": "亲力亲为", "quality": "活力" },
+          { "label": "a", "text": "亲力亲为", "quality": "进取" },
           { "label": "b", "text": "视员工为家人", "quality": "欺瞒" }
         ]
       },
@@ -142,7 +142,7 @@
       {
         "question": "当裁员无可避免时，我会解雇那个……",
         "options": [
-          { "label": "a", "text": "迟到最频繁的人", "quality": "专注" },
+          { "label": "a", "text": "迟到最频繁的人", "quality": "洞察" },
           { "label": "b", "text": "今天迟到的人", "quality": "主动" }
         ]
       }
@@ -166,8 +166,8 @@
       {
         "question": "当我学习新技能时，我是个……",
         "options": [
-          { "label": "a", "text": "视觉型学习者", "quality": "专注" },
-          { "label": "b", "text": "吃一堑长一智型学习者", "quality": "坚毅" }
+          { "label": "a", "text": "视觉型学习者", "quality": "洞察" },
+          { "label": "b", "text": "吃一堑长一智型学习者", "quality": "执着" }
         ]
       },
       {
@@ -180,7 +180,7 @@
       {
         "question": "我的直属上司一直在暗中犯罪！我会……",
         "options": [
-          { "label": "a", "text": "改动他们的日程，为其打造稳固的不在场证据", "quality": "诡秘" },
+          { "label": "a", "text": "改动他们的日程，为其打造稳固的不在场证据", "quality": "隐秘" },
           { "label": "b", "text": "替他们去自首", "quality": "气场" }
         ]
       }
@@ -204,21 +204,21 @@
       {
         "question": "当我为新员工做培训时，我着重强调……",
         "options": [
-          { "label": "a", "text": "铲子的使用技巧", "quality": "专注" },
+          { "label": "a", "text": "铲子的使用技巧", "quality": "洞察" },
           { "label": "b", "text": "如何创造需求", "quality": "主动" }
         ]
       },
       {
         "question": "我负责季度财报，为了让股东留下好印象，我会……",
         "options": [
-          { "label": "a", "text": "反复演示，直到得到理想反馈", "quality": "坚毅" },
+          { "label": "a", "text": "反复演示，直到得到理想反馈", "quality": "执着" },
           { "label": "b", "text": "用积极的能量掩盖糟糕的数字", "quality": "气场" }
         ]
       },
       {
         "question": "我处理我对人类无尽痛苦的超常认知，通过……",
         "options": [
-          { "label": "a", "text": "享受茶香和其他微小的乐趣", "quality": "诡秘" },
+          { "label": "a", "text": "享受茶香和其他微小的乐趣", "quality": "隐秘" },
           { "label": "b", "text": "培养对人类无尽欢乐的超常认知来与之匹配", "quality": "专业" }
         ]
       }
@@ -249,15 +249,15 @@
       {
         "question": "有人并非自称的那个人。我验证其身份的方式是……",
         "options": [
-          { "label": "a", "text": "审问他们", "quality": "坚毅" },
-          { "label": "b", "text": "审问他们", "quality": "活力" }
+          { "label": "a", "text": "审问他们", "quality": "执着" },
+          { "label": "b", "text": "审问他们", "quality": "进取" }
         ]
       },
       {
         "question": "一名罪犯正在闯入我所在的、因火灾而疏散的大楼。我会……",
         "options": [
           { "label": "a", "text": "保证火势不被打扰", "quality": "专业" },
-          { "label": "b", "text": "视其为紧急救援人员并放行", "quality": "专注" }
+          { "label": "b", "text": "视其为紧急救援人员并放行", "quality": "洞察" }
         ]
       }
     ],
@@ -287,8 +287,8 @@
       {
         "question": "一位顾客有一个坏掉的产品和一个令人信服的故事。我会……",
         "options": [
-          { "label": "a", "text": "动用一切能量让他们获得退款", "quality": "坚毅" },
-          { "label": "b", "text": "明确告知“售出概不退换”", "quality": "活力" }
+          { "label": "a", "text": "动用一切能量让他们获得退款", "quality": "执着" },
+          { "label": "b", "text": "明确告知“售出概不退换”", "quality": "进取" }
         ]
       },
       {
@@ -321,14 +321,14 @@
         "question": "当我抓到一个偷我气球动物的小偷时，我……",
         "options": [
           { "label": "a", "text": "教对方如何自己动手做气球", "quality": "共情" },
-          { "label": "b", "text": "让他们知道，我能打结成新奇形状的可不只有气球", "quality": "活力" }
+          { "label": "b", "text": "让他们知道，我能打结成新奇形状的可不只有气球", "quality": "进取" }
         ]
       },
       {
         "question": "我的车里可以容纳……",
         "options": [
           { "label": "a", "text": "正常数量的人", "quality": "欺瞒" },
-          { "label": "b", "text": "所有需要搭车的人", "quality": "坚毅" }
+          { "label": "b", "text": "所有需要搭车的人", "quality": "执着" }
         ]
       },
       {
