@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
 import type { Career, RequisitionEntry } from '../types/arc';
-import { GENERIC_REQUISITIONS } from '../types/arc';
 import SelectCard from './SelectCard';
 
 interface Props {
@@ -18,16 +16,6 @@ export default function CareerSection({
   options, value, onChange, data, specialAnswer, onSpecialAnswer,
   requisitions, onRequisitionsChange,
 }: Props) {
-  // Auto-fill defaults when career changes
-  useEffect(() => {
-    if (!data) return;
-    const defaults: RequisitionEntry[] = [
-      { name: data.initialRequisition, effect: data.requisitionEffect, code: '' },
-      ...GENERIC_REQUISITIONS,
-    ];
-    onRequisitionsChange(defaults);
-  }, [data?.id]);
-
   const updateRow = (i: number, field: keyof RequisitionEntry, val: string) => {
     const next = [...requisitions];
     next[i] = { ...next[i], [field]: val };

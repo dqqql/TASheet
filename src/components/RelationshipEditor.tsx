@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { RelationshipEntry, RelationshipPrompt } from '../types/arc';
 import { CONNECTION_REWARDS } from '../types/arc';
 
@@ -37,13 +38,133 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
     });
   };
 
+  const addCustom = () => {
+    onChange([...entries, emptyEntry('')]);
+  };
+
+  const removeEntry = (i: number) => {
+    onChange(entries.filter((_, idx) => idx !== i));
+  };
+
+  // Shared body: name / player / description / bond progress / reward
+  const renderBody = (i: number, e: RelationshipEntry): ReactNode => {
+    const rewardId = e.bondRewardId || (e.bondBonus ? 'custom' : '');
+    const bondProgress = e.bondProgress ?? 0;
+    return (
+      <>
+        <div className="grid grid-cols-2 gap-2">
+          <label className="block">
+            <span className="agency-label">姓名</span>
+            <input
+              className="agency-input"
+              value={e.name}
+              onChange={(ev) => update(i, 'name', ev.target.value)}
+            />
+          </label>
+          <label className="block">
+            <span className="agency-label">扮演者（可选）</span>
+            <input
+              className="agency-input"
+              value={e.player}
+              onChange={(ev) => update(i, 'player', ev.target.value)}
+            />
+          </label>
+        </div>
+        <label className="block">
+          <span className="agency-label">关系描述</span>
+          <textarea
+            className="agency-textarea"
+            rows={2}
+            value={e.description}
+            onChange={(ev) => update(i, 'description', ev.target.value)}
+          />
+        </label>
+        <div className="space-y-3">
+          <div>
+            <span className="agency-label">连结进度</span>
+            <div className="mt-2">
+              <div className="grid grid-cols-10 items-center text-[10px] font-black text-reality">
+                {Array.from({ length: 10 }).map((_, n) => (
+                  <span key={n} className="text-center">{n}</span>
+                ))}
+              </div>
+              <div className="mt-1 grid grid-cols-10 items-center">
+                {Array.from({ length: 10 }).map((_, n) => {
+                  const selected = bondProgress === n;
+                  const filled = n <= bondProgress;
+                  return (
+                    <button
+                      key={n}
+                      type="button"
+                      aria-label={`连结进度 ${n}`}
+                      aria-pressed={selected}
+                      onClick={() => update(i, 'bondProgress', n)}
+                      className="flex h-7 items-center justify-center border-0 bg-transparent p-0"
+                    >
+                      {n === 0 ? (
+                        <span className={filled ? 'text-base leading-none text-reality' : 'text-base leading-none text-stone-300'}>
+                          ▶
+                        </span>
+                      ) : (
+                        <span
+                          className={
+                            'h-4 w-4 border-2 ' +
+                            (filled ? 'border-reality bg-reality' : 'border-reality bg-white') +
+                            (selected ? ' ring-2 ring-ink/25 ring-offset-1' : '')
+                          }
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <label className="block">
+            <span className="agency-label">连结加成</span>
+            <select
+              className="agency-input"
+              value={rewardId}
+              onChange={(ev) => selectReward(i, ev.target.value)}
+            >
+              <option value="">-- 请选择 --</option>
+              {CONNECTION_REWARDS.map((reward) => (
+                <option key={reward.id} value={reward.id}>
+                  {reward.id === 'custom' ? reward.name : `${reward.id}. ${reward.name}`}
+                </option>
+              ))}
+            </select>
+          </label>
+          {rewardId === 'custom' && (
+            <label className="block">
+              <span className="agency-label">自定义连结加成</span>
+              <textarea
+                className="agency-textarea"
+                rows={2}
+                value={e.bondBonus ?? ''}
+                onChange={(ev) => update(i, 'bondBonus', ev.target.value)}
+              />
+            </label>
+          )}
+          {rewardId && rewardId !== 'custom' && (
+            <p className="border border-reality/30 bg-reality-soft p-3 text-xs leading-relaxed text-ink">
+              {e.bondBonus}
+            </p>
+          )}
+        </div>
+      </>
+    );
+  };
+
+  const customEntries = entries.slice(prompts.length);
+
   return (
     <div className="agency-shell mx-auto max-w-3xl space-y-5 p-4 sm:p-6">
       <div className="border-b-2 border-ink pb-4">
         <p className="agency-kicker">Relationship Network</p>
         <h2 className="agency-title">Step 4 · 创建人际关系</h2>
         <p className="mt-1 text-sm text-muted">
-          基于你选择的现实身份，填写以下三段关键人际关系。
+          基于你选择的现实身份，填写以下三段关键人际关系，也可在下方添加自定义人际关系。
         </p>
       </div>
       {prompts.length === 0 && (
@@ -54,8 +175,6 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
       <div className="space-y-4">
         {prompts.map((p, i) => {
           const e = entries[i] || emptyEntry(p.question);
-          const rewardId = e.bondRewardId || (e.bondBonus ? 'custom' : '');
-          const bondProgress = e.bondProgress ?? 0;
           return (
             <div key={i} className="agency-section space-y-3">
               <p className="text-sm font-bold text-ink">
@@ -69,110 +188,52 @@ export default function RelationshipEditor({ prompts, entries, onChange }: Props
                   示例：{p.examples.join('、')}
                 </p>
               )}
-              <div className="grid grid-cols-2 gap-2">
-                <label className="block">
-                  <span className="agency-label">姓名</span>
-                  <input
-                    className="agency-input"
-                    value={e.name}
-                    onChange={(ev) => update(i, 'name', ev.target.value)}
-                  />
-                </label>
-                <label className="block">
-                  <span className="agency-label">扮演者（可选）</span>
-                  <input
-                    className="agency-input"
-                    value={e.player}
-                    onChange={(ev) => update(i, 'player', ev.target.value)}
-                  />
-                </label>
+              {renderBody(i, e)}
+            </div>
+          );
+        })}
+
+        {customEntries.map((e, j) => {
+          const i = prompts.length + j;
+          return (
+            <div key={i} className="agency-section space-y-3">
+              <div className="flex items-start justify-between gap-2">
+                <span className="mt-1 bg-reality px-2 py-1 text-[10px] font-black uppercase text-white">
+                  自定义 {String(j + 1).padStart(2, '0')}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => removeEntry(i)}
+                  className="flex h-6 w-6 items-center justify-center border border-transparent text-base text-red-400 hover:border-red-300 hover:text-red-600"
+                  title="删除"
+                >
+                  ×
+                </button>
               </div>
               <label className="block">
-                <span className="agency-label">关系描述</span>
-                <textarea
-                  className="agency-textarea"
-                  rows={2}
-                  value={e.description}
-                  onChange={(ev) => update(i, 'description', ev.target.value)}
+                <span className="agency-label">关系称谓 / 提示</span>
+                <input
+                  className="agency-input"
+                  placeholder="例如：我的搭档 / 我亏欠的人"
+                  value={e.prompt}
+                  onChange={(ev) => update(i, 'prompt', ev.target.value)}
                 />
               </label>
-              <div className="space-y-3">
-                <div>
-                  <span className="agency-label">连结进度</span>
-                  <div className="mt-2">
-                    <div className="grid grid-cols-10 items-center text-[10px] font-black text-reality">
-                      {Array.from({ length: 10 }).map((_, n) => (
-                        <span key={n} className="text-center">{n}</span>
-                      ))}
-                    </div>
-                    <div className="mt-1 grid grid-cols-10 items-center">
-                      {Array.from({ length: 10 }).map((_, n) => {
-                        const selected = bondProgress === n;
-                        const filled = n <= bondProgress;
-                        return (
-                          <button
-                            key={n}
-                            type="button"
-                            aria-label={`连结进度 ${n}`}
-                            aria-pressed={selected}
-                            onClick={() => update(i, 'bondProgress', n)}
-                            className="flex h-7 items-center justify-center border-0 bg-transparent p-0"
-                          >
-                            {n === 0 ? (
-                              <span className={filled ? 'text-base leading-none text-reality' : 'text-base leading-none text-stone-300'}>
-                                ▶
-                              </span>
-                            ) : (
-                              <span
-                                className={
-                                  'h-4 w-4 border-2 ' +
-                                  (filled ? 'border-reality bg-reality' : 'border-reality bg-white') +
-                                  (selected ? ' ring-2 ring-ink/25 ring-offset-1' : '')
-                                }
-                              />
-                            )}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-                <label className="block">
-                  <span className="agency-label">连结加成</span>
-                  <select
-                    className="agency-input"
-                    value={rewardId}
-                    onChange={(ev) => selectReward(i, ev.target.value)}
-                  >
-                    <option value="">-- 请选择 --</option>
-                    {CONNECTION_REWARDS.map((reward) => (
-                      <option key={reward.id} value={reward.id}>
-                        {reward.id === 'custom' ? reward.name : `${reward.id}. ${reward.name}`}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                {rewardId === 'custom' && (
-                  <label className="block">
-                    <span className="agency-label">自定义连结加成</span>
-                    <textarea
-                      className="agency-textarea"
-                      rows={2}
-                      value={e.bondBonus ?? ''}
-                      onChange={(ev) => update(i, 'bondBonus', ev.target.value)}
-                    />
-                  </label>
-                )}
-                {rewardId && rewardId !== 'custom' && (
-                  <p className="border border-reality/30 bg-reality-soft p-3 text-xs leading-relaxed text-ink">
-                    {e.bondBonus}
-                  </p>
-                )}
-              </div>
+              {renderBody(i, e)}
             </div>
           );
         })}
       </div>
+
+      {prompts.length > 0 && (
+        <button
+          type="button"
+          onClick={addCustom}
+          className="agency-button w-full border-reality bg-white text-reality hover:bg-reality-soft"
+        >
+          + 添加自定义人际关系
+        </button>
+      )}
     </div>
   );
 }

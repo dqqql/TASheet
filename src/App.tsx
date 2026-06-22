@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import type { Anomaly, Reality, Career, CharacterFormState, RelationshipEntry, QualityName } from './types/arc';
-import { emptyForm, GENERIC_ONBOARDING } from './types/arc';
+import { emptyForm, GENERIC_ONBOARDING, GENERIC_REQUISITIONS } from './types/arc';
 import { loadForm, saveForm, clearForm, exportJson, importJson } from './utils/storage';
 import anomaliesRaw from './data/anomalies.json';
 import realitiesRaw from './data/realities.json';
@@ -231,7 +231,19 @@ export default function App() {
           <CareerSection
             options={careerOptions}
             value={form.careerId}
-            onChange={(id) => update('careerId', id)}
+            onChange={(id) => {
+              const c = careerList.find((x) => x.id === id);
+              setForm((prev) => ({
+                ...prev,
+                careerId: id,
+                customRequisitions: c
+                  ? [
+                      { name: c.initialRequisition, effect: c.requisitionEffect, code: '' },
+                      ...GENERIC_REQUISITIONS.map((g) => ({ ...g })),
+                    ]
+                  : [],
+              }));
+            }}
             data={career}
             specialAnswer={form.careerSpecialAnswer}
             onSpecialAnswer={(v) => update('careerSpecialAnswer', v)}
